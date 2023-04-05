@@ -1,17 +1,20 @@
-
 <template>
-    <div class="top">
-        <RouterLink to="/game-area/bbs">论坛</RouterLink>
-        <RouterLink to="/game-area/share">分享站</RouterLink>
-        <RouterLink to="/game-area/sign">资讯站</RouterLink>
-        <RouterLink to="/game-area/lib">资料库</RouterLink>
-    </div>
-
+    <header>
+        <span class="top">
+            GameArea
+        </span>
+        <span class="top">
+            <RouterLink to="/game-area/bbs">论坛</RouterLink>
+            <RouterLink to="/game-area/share">分享站</RouterLink>
+            <RouterLink to="/game-area/sign">资讯站</RouterLink>
+            <RouterLink to="/game-area/lib">资料库</RouterLink>
+        </span>
+    </header>
     <RouterView />
 </template>
 
 <script setup lang="ts">
-
+import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <style scoped>
