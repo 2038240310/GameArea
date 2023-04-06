@@ -3,9 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import type { RouterView } from 'vue-router';
-
-
+import type { RouterView } from 'vue-router'
 </script>
 
 <style scoped>
