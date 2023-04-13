@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-tabs v-model="activeName" type="card" @tab-click="handleClick()">
+    <el-tabs v-model="activeName" type="bbsCard" @tab-click="handleClick()">
       <el-tab-pane label="User" name="1">User</el-tab-pane>
       <el-tab-pane label="Config" name="2">Config</el-tab-pane>
       <el-tab-pane label="Role" name="3">Role</el-tab-pane>

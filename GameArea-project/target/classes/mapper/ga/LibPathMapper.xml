@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ga.mapper.LibPathMapper">
+    
+    <resultMap type="LibPath" id="LibPathResult">
+        <result property="pathId"    column="path_id"    />
+        <result property="dataPath"    column="data_path"    />
+        <result property="addTime"    column="add_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="status"    column="status"    />
+        <result property="dataName"    column="data_name"    />
+    </resultMap>
+
+    <sql id="selectLibPathVo">
+        select path_id, data_path, add_time, update_time, status, data_name from lib_path
+    </sql>
+
+    <select id="selectLibPathList" parameterType="LibPath" resultMap="LibPathResult">
+        <include refid="selectLibPathVo"/>
+        <where>  
+            <if test="dataPath != null  and dataPath != ''"> and data_path = #{dataPath}</if>
+            <if test="addTime != null "> and add_time = #{addTime}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="dataName != null  and dataName != ''"> and data_name like concat('%', #{dataName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectLibPathByPathId" parameterType="Long" resultMap="LibPathResult">
+        <include refid="selectLibPathVo"/>
+        where path_id = #{pathId}
+    </select>
+        
+    <insert id="insertLibPath" parameterType="LibPath" useGeneratedKeys="true" keyProperty="pathId">
+        insert into lib_path
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dataPath != null and dataPath != ''">data_path,</if>
+            <if test="addTime != null">add_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="dataName != null">data_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="dataPath != null and dataPath != ''">#{dataPath},</if>
+            <if test="addTime != null">#{addTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="dataName != null">#{dataName},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLibPath" parameterType="LibPath">
+        update lib_path
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="dataPath != null and dataPath != ''">data_path = #{dataPath},</if>
+            <if test="addTime != null">add_time = #{addTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="dataName != null">data_name = #{dataName},</if>
+        </trim>
+        where path_id = #{pathId}
+    </update>
+
+    <delete id="deleteLibPathByPathId" parameterType="Long">
+        delete from lib_path where path_id = #{pathId}
+    </delete>
+
+    <delete id="deleteLibPathByPathIds" parameterType="String">
+        delete from lib_path where path_id in 
+        <foreach item="pathId" collection="array" open="(" separator="," close=")">
+            #{pathId}
+        </foreach>
+    </delete>
+</mapper>

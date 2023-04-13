@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ga.mapper.BbsReplyMapper">
+    
+    <resultMap type="BbsReply" id="BbsReplyResult">
+        <result property="replyId"    column="reply_id"    />
+        <result property="message"    column="message"    />
+        <result property="cardId"    column="card_id"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <sql id="selectBbsReplyVo">
+        select reply_id, message, card_id, create_by, create_time, update_time, status from bbs_reply
+    </sql>
+
+    <select id="selectBbsReplyList" parameterType="BbsReply" resultMap="BbsReplyResult">
+        <include refid="selectBbsReplyVo"/>
+        <where>  
+            <if test="message != null  and message != ''"> and message = #{message}</if>
+            <if test="cardId != null  and cardId != ''"> and card_id = #{cardId}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectBbsReplyByReplyId" parameterType="Long" resultMap="BbsReplyResult">
+        <include refid="selectBbsReplyVo"/>
+        where reply_id = #{replyId}
+    </select>
+        
+    <insert id="insertBbsReply" parameterType="BbsReply" useGeneratedKeys="true" keyProperty="replyId">
+        insert into bbs_reply
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="message != null">message,</if>
+            <if test="cardId != null and cardId != ''">card_id,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="status != null and status != ''">status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="message != null">#{message},</if>
+            <if test="cardId != null and cardId != ''">#{cardId},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="status != null and status != ''">#{status},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBbsReply" parameterType="BbsReply">
+        update bbs_reply
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="message != null">message = #{message},</if>
+            <if test="cardId != null and cardId != ''">card_id = #{cardId},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+        </trim>
+        where reply_id = #{replyId}
+    </update>
+
+    <delete id="deleteBbsReplyByReplyId" parameterType="Long">
+        delete from bbs_reply where reply_id = #{replyId}
+    </delete>
+
+    <delete id="deleteBbsReplyByReplyIds" parameterType="String">
+        delete from bbs_reply where reply_id in 
+        <foreach item="replyId" collection="array" open="(" separator="," close=")">
+            #{replyId}
+        </foreach>
+    </delete>
+</mapper>

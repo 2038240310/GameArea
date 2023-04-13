@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ga.mapper.BbsCardInfoMapper">
+    
+    <resultMap type="BbsCardInfo" id="BbsCardInfoResult">
+        <result property="infoId"    column="info_id"    />
+        <result property="cardId"    column="card_id"    />
+        <result property="likeNum"    column="like_num"    />
+        <result property="commentNum"    column="comment_num"    />
+        <result property="sourcePath"    column="source_path"    />
+        <result property="message"    column="message"    />
+    </resultMap>
+
+    <sql id="selectBbsCardInfoVo">
+        select info_id, card_id, like_num, comment_num, source_path, message from bbs_card_info
+    </sql>
+
+    <select id="selectBbsCardInfoList" parameterType="BbsCardInfo" resultMap="BbsCardInfoResult">
+        <include refid="selectBbsCardInfoVo"/>
+        <where>  
+            <if test="cardId != null  and cardId != ''"> and card_id = #{cardId}</if>
+            <if test="likeNum != null "> and like_num = #{likeNum}</if>
+            <if test="commentNum != null "> and comment_num = #{commentNum}</if>
+            <if test="sourcePath != null  and sourcePath != ''"> and source_path = #{sourcePath}</if>
+            <if test="message != null  and message != ''"> and message = #{message}</if>
+        </where>
+    </select>
+    
+    <select id="selectBbsCardInfoByInfoId" parameterType="Long" resultMap="BbsCardInfoResult">
+        <include refid="selectBbsCardInfoVo"/>
+        where info_id = #{infoId}
+    </select>
+        
+    <insert id="insertBbsCardInfo" parameterType="BbsCardInfo" useGeneratedKeys="true" keyProperty="infoId">
+        insert into bbs_card_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cardId != null and cardId != ''">card_id,</if>
+            <if test="likeNum != null">like_num,</if>
+            <if test="commentNum != null">comment_num,</if>
+            <if test="sourcePath != null">source_path,</if>
+            <if test="message != null">message,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cardId != null and cardId != ''">#{cardId},</if>
+            <if test="likeNum != null">#{likeNum},</if>
+            <if test="commentNum != null">#{commentNum},</if>
+            <if test="sourcePath != null">#{sourcePath},</if>
+            <if test="message != null">#{message},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBbsCardInfo" parameterType="BbsCardInfo">
+        update bbs_card_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cardId != null and cardId != ''">card_id = #{cardId},</if>
+            <if test="likeNum != null">like_num = #{likeNum},</if>
+            <if test="commentNum != null">comment_num = #{commentNum},</if>
+            <if test="sourcePath != null">source_path = #{sourcePath},</if>
+            <if test="message != null">message = #{message},</if>
+        </trim>
+        where info_id = #{infoId}
+    </update>
+
+    <delete id="deleteBbsCardInfoByInfoId" parameterType="Long">
+        delete from bbs_card_info where info_id = #{infoId}
+    </delete>
+
+    <delete id="deleteBbsCardInfoByInfoIds" parameterType="String">
+        delete from bbs_card_info where info_id in 
+        <foreach item="infoId" collection="array" open="(" separator="," close=")">
+            #{infoId}
+        </foreach>
+    </delete>
+</mapper>

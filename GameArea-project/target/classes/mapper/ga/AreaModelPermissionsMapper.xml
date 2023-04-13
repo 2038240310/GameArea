@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ga.mapper.AreaModelPermissionsMapper">
+    
+    <resultMap type="AreaModelPermissions" id="AreaModelPermissionsResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="model"    column="model"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <sql id="selectAreaModelPermissionsVo">
+        select id, user_id, model, create_time, update_time, status from area_model_permissions
+    </sql>
+
+    <select id="selectAreaModelPermissionsList" parameterType="AreaModelPermissions" resultMap="AreaModelPermissionsResult">
+        <include refid="selectAreaModelPermissionsVo"/>
+        <where>  
+            <if test="userId != null  and userId != ''"> and user_id = #{userId}</if>
+            <if test="model != null  and model != ''"> and model = #{model}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectAreaModelPermissionsById" parameterType="Long" resultMap="AreaModelPermissionsResult">
+        <include refid="selectAreaModelPermissionsVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertAreaModelPermissions" parameterType="AreaModelPermissions" useGeneratedKeys="true" keyProperty="id">
+        insert into area_model_permissions
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null and userId != ''">user_id,</if>
+            <if test="model != null and model != ''">model,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="status != null and status != ''">status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null and userId != ''">#{userId},</if>
+            <if test="model != null and model != ''">#{model},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="status != null and status != ''">#{status},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAreaModelPermissions" parameterType="AreaModelPermissions">
+        update area_model_permissions
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null and userId != ''">user_id = #{userId},</if>
+            <if test="model != null and model != ''">model = #{model},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAreaModelPermissionsById" parameterType="Long">
+        delete from area_model_permissions where id = #{id}
+    </delete>
+
+    <delete id="deleteAreaModelPermissionsByIds" parameterType="String">
+        delete from area_model_permissions where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

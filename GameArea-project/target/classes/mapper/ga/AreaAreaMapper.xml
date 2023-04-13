@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ga.mapper.AreaAreaMapper">
+    
+    <resultMap type="AreaArea" id="AreaAreaResult">
+        <result property="id"    column="id"    />
+        <result property="areaName"    column="area_name"    />
+        <result property="areaPicSource"    column="area_pic_source"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <sql id="selectAreaAreaVo">
+        select id, area_name, area_pic_source, create_time, status from area_area
+    </sql>
+
+    <select id="selectAreaAreaList" parameterType="AreaArea" resultMap="AreaAreaResult">
+        <include refid="selectAreaAreaVo"/>
+        <where>  
+            <if test="areaName != null  and areaName != ''"> and area_name like concat('%', #{areaName}, '%')</if>
+            <if test="areaPicSource != null  and areaPicSource != ''"> and area_pic_source = #{areaPicSource}</if>
+            <if test="createTime != null"> and create_time = #{createTime}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectAreaAreaById" parameterType="Long" resultMap="AreaAreaResult">
+        <include refid="selectAreaAreaVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertAreaArea" parameterType="AreaArea" useGeneratedKeys="true" keyProperty="id">
+        insert into area_area
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="areaName != null and areaName != ''">area_name,</if>
+            <if test="areaPicSource != null">area_pic_source,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="status != null and status != ''">status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="areaName != null and areaName != ''">#{areaName},</if>
+            <if test="areaPicSource != null">#{areaPicSource},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="status != null and status != ''">#{status},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAreaArea" parameterType="AreaArea">
+        update area_area
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="areaName != null and areaName != ''">area_name = #{areaName},</if>
+            <if test="areaPicSource != null">area_pic_source = #{areaPicSource},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAreaAreaById" parameterType="Long">
+        delete from area_area where id = #{id}
+    </delete>
+
+    <delete id="deleteAreaAreaByIds" parameterType="String">
+        delete from area_area where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

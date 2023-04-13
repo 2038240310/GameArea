@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ga.mapper.LibUpdateApplyMapper">
+    
+    <resultMap type="LibUpdateApply" id="LibUpdateApplyResult">
+        <result property="id"    column="id"    />
+        <result property="applyType"    column="apply_type"    />
+        <result property="applicantId"    column="applicant_id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="status"    column="status"    />
+        <result property="applyToId"    column="apply_to_id"    />
+    </resultMap>
+
+    <sql id="selectLibUpdateApplyVo">
+        select id, apply_type, applicant_id, create_time, status, apply_to_id from lib_update_apply
+    </sql>
+
+    <select id="selectLibUpdateApplyList" parameterType="LibUpdateApply" resultMap="LibUpdateApplyResult">
+        <include refid="selectLibUpdateApplyVo"/>
+        <where>  
+            <if test="applyType != null "> and apply_type = #{applyType}</if>
+            <if test="applicantId != null  and applicantId != ''"> and applicant_id = #{applicantId}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="applyToId != null  and applyToId != ''"> and apply_to_id = #{applyToId}</if>
+        </where>
+    </select>
+    
+    <select id="selectLibUpdateApplyById" parameterType="Long" resultMap="LibUpdateApplyResult">
+        <include refid="selectLibUpdateApplyVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertLibUpdateApply" parameterType="LibUpdateApply" useGeneratedKeys="true" keyProperty="id">
+        insert into lib_update_apply
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="applyType != null">apply_type,</if>
+            <if test="applicantId != null and applicantId != ''">applicant_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="applyToId != null and applyToId != ''">apply_to_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="applyType != null">#{applyType},</if>
+            <if test="applicantId != null and applicantId != ''">#{applicantId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="applyToId != null and applyToId != ''">#{applyToId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateLibUpdateApply" parameterType="LibUpdateApply">
+        update lib_update_apply
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="applyType != null">apply_type = #{applyType},</if>
+            <if test="applicantId != null and applicantId != ''">applicant_id = #{applicantId},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="applyToId != null and applyToId != ''">apply_to_id = #{applyToId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteLibUpdateApplyById" parameterType="Long">
+        delete from lib_update_apply where id = #{id}
+    </delete>
+
+    <delete id="deleteLibUpdateApplyByIds" parameterType="String">
+        delete from lib_update_apply where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
