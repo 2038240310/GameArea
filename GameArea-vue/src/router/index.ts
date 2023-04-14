@@ -7,9 +7,9 @@ import Partition from '@/view/home/Partition/index.vue'
 import Error from '@/view/error/error.vue'
 import posteditor from '@/view/home/posteditor/index.vue'
 import postDetail from '@/view/home/postDetail/index.vue'
-import game from '@/view/gamearea/home/index.vue'
-import gamedetail from '@/view/gamearea/detail/index.vue'
-import wiki from '@/view/gamearea/wiki/index.vue'
+import game from '@/view/gamearea/ga-sign/index.vue'
+import gamedetail from '@/view/gamearea/ga-share/index.vue'
+import wiki from '@/view/gamearea/ga-lib/index.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,7 +17,11 @@ const router = createRouter({
 
     {
       path: '/home',
-      redirect: '/'
+      redirect: '/main'
+    },
+    {
+      path: '/',
+      redirect: '/main'
     },
     {
       component: Layout,
@@ -29,7 +33,7 @@ const router = createRouter({
           name: 'home',
           children: [
             {
-              path: '/home/bbs', 
+              path: '/bbs', 
               component: content, 
               name: 'content',
             },
@@ -83,13 +87,11 @@ const router = createRouter({
           path: '/login', 
           component: Login, 
           name: 'login',
-          //children:[{}]   也可以继续添加children嵌套
         },
         {
           path: '/error', 
           component: Error, 
           name: 'error',
-          //children:[{}]   也可以继续添加children嵌套
         },
       ]
     }

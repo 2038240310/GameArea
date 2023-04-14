@@ -9,9 +9,13 @@ import '@unocss/reset/tailwind.css'
 // Import `@kidonng/daisyui` **BEFORE** `uno.css`
 import '@kidonng/daisyui/index.css'
 import 'uno.css'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+
 const app = createApp(App)
 
 app.use(createPinia())
+app.use(ElementPlus)
 app.use(router)
 
 app.mount('#app')
