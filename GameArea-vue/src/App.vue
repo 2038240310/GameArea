@@ -1,15 +1,23 @@
 <template>
-  <RouterView />
+    <router-view></router-view>
+    <rp-alert ref="alert" />
 </template>
 
-<script setup lang="ts">
+<script setup lang='ts'>
 import { ref, reactive, watch } from 'vue'
 import { onMounted } from 'vue'
-import { themeChange } from "theme-change"
-import { createPinia } from 'pinia'
-import { provide } from "vue"
-import rpAlert from './components/basic/rp-alert.vue'
-import useAlertStore from './stores/alert'
+import { themeChange } from "theme-change";
+import { createPinia } from 'pinia';
+import { provide } from "vue";
+import rpAlert from './components/basic/rp-alert.vue';
+import useAlertStore from './stores/alert';
+// onMounted(() => {
+//     setTimeout(() => {
+//         themeChange(false)
+//     }, 1)
+//     themeChange(true)
+
+// })
 
 const pinia = createPinia();
 // 使用pinia
@@ -37,7 +45,7 @@ watch(() => useAlertStore().alert, (newVal: any) => {
 console.log(import.meta.env.VITE_API)
 </script>
 
-<style lang="less">
+<style lang='less'>
 ::-webkit-scrollbar {
     width: 5px;
     height: 5px;
@@ -61,5 +69,6 @@ console.log(import.meta.env.VITE_API)
     color:  bg-primary-500;
     //字体替换成楷体
     font-family: 'KaiTi', 'STKaiti', 'SimKai', 'NSimSun', 'FangSong', 'FangSong_GB2312', 'STFangSong', 'STSong', 'STZhongsong', 'KaiTi_GB2312',
+
 }
 </style>

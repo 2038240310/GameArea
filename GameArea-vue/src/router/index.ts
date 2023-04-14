@@ -29,16 +29,9 @@ const router = createRouter({
           name: 'home',
           children: [
             {
-              // 论坛
-              path: '/bbs', 
+              path: '/home/bbs', 
               component: content, 
               name: 'content',
-            },
-            {
-              // 主页
-              path: '/main',
-              component: game,
-              name: 'game',
             },
             {
               path: '/home/posteditor', 
@@ -61,6 +54,12 @@ const router = createRouter({
               name: 'postDetail',
             }
           ]
+        },
+        {
+          // 主页
+          path: '/main',
+          component: game,
+          name: 'game',
         },
         {
           // 分享站
