@@ -24,7 +24,8 @@
             <div class=" flex justify-start">
                 <label class="btn  btn-ghost avatar mt2" href="/">
                     <div class="w-12 rounded-box">
-                        <img :src="comment.useravatar" alt='avatar' />
+                        <img v-if="comment.useravatar!=undefined" :src="comment.useravatar" alt='avatar' />
+                        <img v-else src="@/assets/images/avatar.jpg" alt="">
                     </div>
                 </label>
                 <div class=" ml-2">
@@ -52,7 +53,8 @@
                                 <div class=" flex justify-start">
                                     <label class="btn  btn-ghost avatar">
                                         <div class="w-12 rounded-box">
-                                            <img :src="reply.useravatar" alt='avatar' />
+                                            <img v-if="reply.useravatar != undefined" :src="reply.useravatar" alt='avatar' />
+                                            <img v-else src="@/assets/images/avatar.jpg" alt="">
                                         </div>
                                     </label>
                                     <div class=" ml-2">
@@ -61,8 +63,9 @@
                                     </div>
                                 </div>
                                 <div class="content">
-                                    <p class="content m4"><a class="badge badge-primary" v-if="reply.replyusername != undefined">@{{
-                                        reply.replyusername }}</a> {{reply.message}}
+                                    <p class="content m4"><a class="badge badge-primary"
+                                            v-if="reply.replyusername != undefined">@{{
+                                                reply.replyusername }}</a> {{ reply.message }}
                                     </p> <!-- 显示评论内容 -->
                                     <span class="date justify-end ml4">{{ reply.createTime }}</span>
                                     <label for="rp-modal" class="justify-end btn   btn -xs btn -outline ml-xl"

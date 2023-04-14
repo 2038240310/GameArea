@@ -31,10 +31,13 @@
     <div>
         <!-- 顶部栏 -->
         <div>
+            <div class="flex justify-center">
             <div class="top-main">
                 <rp-banner :list="piclist.list"></rp-banner>
             </div>
+        </div>
             <div class="top-side">
+                <rp-table :Headerlist="Headerlist" :tablelist="jifenlist"></rp-table>
             </div>
         </div>
 
@@ -79,11 +82,36 @@ import rpBanner from '@/components/basic/rp-banner.vue';
 //引入板块api
 import { getBlocklist } from '@/api/block';
 import router from '@/router';
-
+//引入rp-table
+import rpTable from '@/components/basic/rp-table.vue';
 //获取板块列表
 const blocklist = reactive({
     list: []
 }) as any;
+
+//创建表头数据
+const tablelist = reactive({
+    list: [
+        { title: '排名', key: 'rank' },
+        { title: '用户', key: 'user' },
+        { title: '积分', key: 'score' },
+    ]
+}) as any;
+
+//创建表头数据
+const Headerlist = reactive(['排名', '用户名', '积分'])
+//创建表格数据
+const jifenlist = reactive([
+    ['1', '张三', '100'],
+    ['2', '李四', '90'],
+    ['3', '王五', '80'],
+    ['4', '赵六', '70'],
+    ['5', '田七', '60'],
+    ['6', '孙八', '50'],
+    ['7', '周九', '40'],
+    ['8', '吴十', '30'],
+])
+
 
 //创建轮播图数据
 const piclist = reactive({

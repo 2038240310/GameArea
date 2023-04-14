@@ -24,7 +24,8 @@
             <div class="dropdown dropdown-end">
                 <label tabindex="0" class="btn  btn-ghost  avatar">
                     <div class="w-12 rounded-box">
-                        <img :src="avatar" />
+                        <img v-if="avatar != undefined" :src="avatar" alt='avatar' />
+                        <img v-else src="@/assets/images/avatar.jpg" alt="">
                     </div>
                 </label>
                 <ul tabindex="0" v-if="useuserStore().getUser == ''"
@@ -50,6 +51,7 @@
 import { ref, reactive, onMounted } from 'vue';
 import useuserStore from '@/stores/user'
 import { getUserInfo } from '@/api/user';
+import router from '@/router';
 const handleChangeTheme = () => {
     const html = document.getElementsByTagName('html')[0]
     const darkTheme = html.dataset.theme
@@ -78,10 +80,29 @@ onMounted(() => {
         })
     }
 })
+
+
+//路由切换时触发
+router.afterEach((to, from) => {
+    //获取用户信息
+    let id = useuserStore().getUser
+    //如果id不为空则获取用户信息
+    if (id) {
+        getUserInfo(id).then(res => {
+            avatar.value = res.data[0].avatarPath
+        })
+    }
+})
+
+
 //打印hello world
 function log() {
+    //清除用户信息和token，本地存储中的，pinia中的
+    localStorage.removeItem('token')
+    localStorage.removeItem('id')
     let i = useuserStore().getUser
-    console.log(i);
+    //刷新页面
+    window.location.reload()
 }
 //  头像地址
 const avatar = ref('')
