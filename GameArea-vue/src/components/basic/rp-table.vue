@@ -3,17 +3,17 @@
 <table class="table w-full">
     <!-- 表头数据 -->
     <thead>
-    <tr>
-        <th></th>
-        <th v-for="item in props.Headerlist">{{item}}</th>
-    </tr>
+        <tr>
+            <th></th>
+            <th v-for="item in props.Headerlist">{{item}}</th>
+        </tr>
     </thead>
     <tbody>
     <!-- 表格数据 -->
         <tr v-for="(item,index) in props.tablelist" :key=index>
-        <th>{{index}}</th>
-        <td v-for="tableitem in item">{{tableitem}}</td>
-    </tr>
+            <th>{{index}}</th>
+            <td v-for="tableitem in item">{{tableitem}}</td>
+        </tr>
     </tbody>
 </table>
 </div>
@@ -21,9 +21,13 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 
+const data = reactive({
+    tablelist: {}
+})
+
 interface Props {
     Headerlist: string[],
-    tablelist: string[][]
+    tablelist: {}
 }
 const props = withDefaults(defineProps<Props>(), {
 })

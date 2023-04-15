@@ -8,15 +8,20 @@
 </template>
 
 <script setup lang='ts'>
+import { onUpdated } from 'vue';
+
 
 // 定义props类型
 interface Props {
     modelValue: string | number
-    options: Array<{ value: string | number; label: string }>
+    options: Array<{}>
 }
 
 // 定义props
 const props = defineProps<Props>()
+
+console.log(props.options[0].get('typeNam'));
+
 
 // 定义emit事件
 const emit = defineEmits(['update:modelValue'])

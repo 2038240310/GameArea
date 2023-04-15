@@ -4,9 +4,14 @@
             <div class="h-a items-center grid grid-cols-2 mb1">
                 <div>
                     <label>筛选标签:</label>
-                    <rp-select :options="options" v-model="block"></rp-select>
+                    <!-- <rp-select :options="data.cardTypeList" label="typeName" value="typeId" v-model="block"></rp-select> -->
+                    <el-select size="large" placeholder="选择分类">
+                        <el-option v-for="item in data.cardTypeList" :key="item.typeId" :label="item.typeName"
+                            :value="item.typeId" />
+                    </el-select>
                 </div>
-                <div>
+                <!-- 日期范围 -->
+                <!-- <div>
                     <div class="flex flex-row">
                         <div class="flex flex-col">
                             <label for="">开始日期</label>
@@ -17,6 +22,9 @@
                             <input class="input input-bordered" type="date" v-model="endDate">
                         </div>
                     </div>
+                </div> -->
+                <div>
+                    <el-button @click="handleCardSub">分享资源</el-button>
                 </div>
             </div>
         </div>
@@ -26,14 +34,17 @@
                     <div text-6xl>loading...</div>
                 </div>
                 <div class="grid grid-cols-3 w-full h-full m2 p2 ">
-                    <div class="card w-a h-a bg-base-100 shadow-xl m2" v-for="item in 10">
-                        <figure><img src="https://lain.bgm.tv/pic/cover/l/83/cf/304217_Yu97O.jpg" alt="Shoes" />
+                    <div class="card w-a h-a bg-base-100 shadow-xl m2" v-for="item in data.cardList">
+                        <figure>
+                            <img />
+                            <img v-if="item.picPath == null" src="https://lain.bgm.tv/pic/cover/l/83/cf/304217_Yu97O.jpg"
+                                alt="Shoes" />
                         </figure>
                         <div class="card-body">
                             <h3 class="card-title">
-                                红发女郎
+                                {{ item.title }}
                             </h3>
-                            <p>超级二次元啊</p>
+                            <p>{{ item.createTime }}</p>
                         </div>
                     </div>
                 </div>
@@ -47,6 +58,9 @@ import { ref, reactive, onMounted, onUnmounted } from 'vue'
 import type { Ref } from 'vue';
 import router from '@/router';
 import rpSelect from '@/components/basic/rp-select.vue';
+// api
+import { listShareCard } from '@/api/ga/shareCard'
+import { listShareCardType } from '@/api/ga/shareCardType'
 
 //创建日期变数
 const startDate: any = ref('');
@@ -65,12 +79,17 @@ onMounted(() => {
 
 });
 //选择器示例数据
-const options = [
-    { value: 1, label: '玩家装备' },
-    { value: 2, label: '游戏攻略' },
-    { value: 3, label: '游戏新闻' },
-    { value: 4, label: '游戏评测' },
+const options: never[] = [
+    // { value: 1, label: '玩家装备' },
+    // { value: 2, label: '游戏攻略' },
+    // { value: 3, label: '游戏新闻' },
+    // { value: 4, label: '游戏评测' },
 ]
+
+const data = reactive({
+    cardList: [],
+    cardTypeList: []
+})
 
 //监听滚动方法
 function scrollHandle() {
@@ -91,7 +110,29 @@ onMounted(() => {
     //组件挂载时，添加scroll监听
     const postcontent = document.getElementsByClassName('postcontent')[0];
     postcontent.addEventListener("scroll", scrollHandle, true);
+    handleCardList()
+    handleCardTypeList()
 });
 
+// 跳转至资源帖发布编辑页面
+function handleCardSub() {
+    console.log('switch page');
+}
+
+// 获取资源帖分类
+function handleCardTypeList() {
+    listShareCardType().then((res: { data: { data: never[]; }; }) => {
+        data.cardTypeList = res.data.data
+        console.log(data);
+    })
+}
+
+// 获取资源帖
+function handleCardList() {
+    listShareCard().then((res: { data: { data: never[]; }; }) => {
+        data.cardList = res.data.data
+        // console.log(data);
+    })
+}
 
 </script>

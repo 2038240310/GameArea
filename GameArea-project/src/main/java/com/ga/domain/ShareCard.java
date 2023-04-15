@@ -24,6 +24,9 @@ public class ShareCard
     /** 分享贴类型id */
     private String typeId;
 
+    /** 预览图路径 */
+    private String picPath;
+
     /** 创建者id */
     private String createBy;
 

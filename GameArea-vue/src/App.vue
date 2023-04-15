@@ -41,8 +41,9 @@ watch(() => useAlertStore().alert, (newVal: any) => {
     }
 });
 
-
-console.log(import.meta.env.VITE_API)
+// // 后端服务器路径
+// const BASE_URL = import.meta.env.VITE_API
+// console.log(import.meta.env.VITE_API)
 </script>
 
 <style lang='less'>

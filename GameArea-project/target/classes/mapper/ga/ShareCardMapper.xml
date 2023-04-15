@@ -8,6 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="cardId"    column="card_id"    />
         <result property="title"    column="title"    />
         <result property="typeId"    column="type_id"    />
+        <result property="picPath"      column="pic_path"   />
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
         <result property="updateBy"    column="update_by"    />
