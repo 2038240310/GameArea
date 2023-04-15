@@ -24,7 +24,7 @@
                     </div>
                 </div> -->
                 <div>
-                    <el-button @click="handleCardSub">分享资源</el-button>
+                    <el-button @click="switchCardSub">分享资源</el-button>
                 </div>
             </div>
         </div>
@@ -35,16 +35,18 @@
                 </div>
                 <div class="grid grid-cols-3 w-full h-full m2 p2 ">
                     <div class="card w-a h-a bg-base-100 shadow-xl m2" v-for="item in data.cardList">
-                        <figure>
-                            <img />
-                            <img v-if="item.picPath == null" src="https://lain.bgm.tv/pic/cover/l/83/cf/304217_Yu97O.jpg"
-                                alt="Shoes" />
-                        </figure>
-                        <div class="card-body">
-                            <h3 class="card-title">
-                                {{ item.title }}
-                            </h3>
-                            <p>{{ item.createTime }}</p>
+                        <div @click="switchDetailCard(item.cardId)">
+                            <figure>
+                                <img />
+                                <img v-if="item.picPath == null"
+                                    src="https://lain.bgm.tv/pic/cover/l/83/cf/304217_Yu97O.jpg" alt="Shoes" />
+                            </figure>
+                            <div class="card-body">
+                                <h3 class="card-title">
+                                    {{ item.title }}
+                                </h3>
+                                <p>{{ item.createTime }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -112,11 +114,54 @@ onMounted(() => {
     postcontent.addEventListener("scroll", scrollHandle, true);
     handleCardList()
     handleCardTypeList()
+    defaultTestData()
 });
 
+// 测试使用数据
+function defaultTestData() {
+    data.cardList = [
+        {
+            cardId: 1,
+            title: '资源贴-测试-前端本地数据',
+            createTime: '2023-04-15'
+        },
+        {
+            cardId: 2,
+            title: '资源贴-测试-前端本地数据1',
+            createTime: '2023-04-15'
+        },
+        {
+            cardId: 3,
+            title: '资源贴-测试-前端本地数据2',
+            createTime: '2023-04-15'
+        },
+    ]
+
+    data.cardTypeList = [
+        {
+            typeName: '前端测试分类1',
+            typeId: '1'
+        },
+        {
+            typeName: '前端测试分类2',
+            typeId: '2'
+        },
+        {
+            typeName: '前端测试分类3',
+            typeId: '3'
+        },
+    ]
+}
+
 // 跳转至资源帖发布编辑页面
-function handleCardSub() {
+function switchCardSub() {
     console.log('switch page');
+}
+
+// 跳转至详细页内
+function switchDetailCard(cardId: string) {
+    console.log('switch to cardId:'+cardId);
+    router.push({ name: 'share-detail' });
 }
 
 // 获取资源帖分类

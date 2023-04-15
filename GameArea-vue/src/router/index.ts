@@ -36,10 +36,16 @@ const router = createRouter({
               name: 'content',
             },
             {
+              // 分享站详细页
+              path: '/share/detail',
+              component: () => import('@/view/gamearea/ga-share/module-page/detail.vue'),
+              name: 'share-detail'
+            },
+            {
               path: '/home/posteditor', 
               component: posteditor, 
               name: 'posteditor',
-              //守卫
+              // 守卫
               beforeEnter: (to, from, next) => {
                 const token = localStorage.getItem("token")
                 if (token) {

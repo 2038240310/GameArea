@@ -1,5 +1,6 @@
 <template>
-    <router-view></router-view>
+    <!-- route规则key绑定fullPath，路由路径改变就刷新 -->
+    <router-view :key="$route.fullPath"></router-view>
     <rp-alert ref="alert" />
 </template>
 
