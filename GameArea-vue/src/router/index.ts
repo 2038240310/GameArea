@@ -3,13 +3,11 @@ import Layout from '@/layout/index.vue'
 import Home from '@/view/home/index.vue'
 import Login from '@/view/login/index.vue'
 import content from '@/view/home/content/index.vue'
-import Partition from '@/view/home/Partition/index.vue'
+// import Partition from '@/view/home/Partition/index.vue'
 import Error from '@/view/error/error.vue'
 import posteditor from '@/view/home/posteditor/index.vue'
 import postDetail from '@/view/home/postDetail/index.vue'
-import game from '@/view/gamearea/ga-sign/index.vue'
-import gamedetail from '@/view/gamearea/ga-share/index.vue'
-import wiki from '@/view/gamearea/ga-lib/index.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -62,25 +60,25 @@ const router = createRouter({
         {
           // 主页
           path: '/main',
-          component: game,
+          component: () => import('@/view/gamearea/index.vue'),
           name: 'game',
         },
         {
           // 分享站
           path: '/share',
-          component: gamedetail,
+          component: () => import('@/view/gamearea/ga-share/index.vue'),
           name: 'gamedetail',
         },
         {
           // 资料库
           path: '/lib',
-          component: wiki,
+          component: () => import('@/view/gamearea/ga-lib/index.vue'),
           name: 'wiki',
         },
         {
           // 资讯消息站
           path: '/sign', 
-          component: Partition, 
+          component: () => import('@/view/gamearea/ga-sign/index.vue'), 
           name: 'Partition',
         },
         {

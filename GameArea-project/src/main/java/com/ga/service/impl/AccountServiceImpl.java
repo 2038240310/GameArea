@@ -1,19 +1,19 @@
 package com.ga.service.impl;
 
 import com.ga.domain.AreaUser;
-import com.ga.domain.msg.AjaxResult;
 import com.ga.service.IAccountService;
 import com.ga.service.IAreaUserService;
-import com.ga.utils.CaptchaUtils;
 import com.ga.utils.DateTimeUtils;
 import com.ga.utils.JJWTUtils;
 import com.ga.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class AccountServiceImpl implements IAccountService {
 
     @Autowired

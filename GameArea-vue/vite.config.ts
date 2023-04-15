@@ -28,14 +28,14 @@ export default defineConfig({
     }
   },
 //解决跨域
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:8081/bbs',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
-      }
-    }
-  }
+  // server: {
+  //   proxy: {
+  //     '/api': {
+  //       target: 'http://localhost:8081/bbs',
+  //       changeOrigin: true,
+  //       rewrite: (path) => path.replace(/^\/api/, '')
+  //     }
+  //   }
+  // }
 })
 
