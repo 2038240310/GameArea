@@ -1,6 +1,6 @@
 <!-- ga-sign -->
 <template>
-    <div class="card-wrap">
+    <div class="card-wrap" style="width: 95%;">
         <div v-for="item in signCardList.list">
             <MDBCard class="mb-3" style="max-width: 540px;margin: 0px 5px;" @click="toDetail(item.boardId)">
                 <MDBRow class="g-0">
