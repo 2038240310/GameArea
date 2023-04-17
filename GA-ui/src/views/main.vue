@@ -35,27 +35,50 @@
                         <MDBCardTitle>话题帖子</MDBCardTitle>
                     </MDBCard>
                 </MDBCol>
-                <MDBCol col="10" style="height: 200px;">
-                    <MDBCard style="height: 100%;">
-                        <MDBCardTitle>热门分区</MDBCardTitle>
+                <MDBCol col="10">
+                    <MDBCard>
                         <MDBRow>
-                            <MDBCol col="2" v-for="item in data.areaList">
-                                <MDBCard class="m-1" @click="toArea(item.areaId)">
-                                    <MDBCardImg :src="item.picPath"></MDBCardImg>
-                                    <MDBCardText>{{ item.areaName }}</MDBCardText>
-                                </MDBCard>
+                            <MDBCol col="10">
+                                <MDBCardTitle>热门分区</MDBCardTitle>
+                            </MDBCol>
+                            <MDBCol col="2">
+                                <!-- 跳入areaTotalPage -->
+                                更多
                             </MDBCol>
                         </MDBRow>
+
+
+                        <MDBCardGroup>
+                            <div v-for="item in data.areaList">
+                                <MDBCard class="m-1" style="width: 100px;height: 100px;" @click="toArea(item.boardId)">
+                                    <MDBCardImg :src="item.picPath" top alt="..." style="object-fit: cover;height: 75%;" />
+
+                                    <MDBCardTitle>{{ item.areaName }}</MDBCardTitle>
+
+                                </MDBCard>
+                            </div>
+                        </MDBCardGroup>
+
+                        <!-- <MDBCardGroup style="display: flex;flex-wrap: wrap;flex-direction: row;">
+                            <MDBCard v-for="item in data.areaList" class="m-1" border="select" @click="toArea(item.areaId)"
+                                style="width: 100px;height: 100px;">
+                                
+                                    <MDBCardImg overlay :src="item.picPath" />
+                                    <MDBCardHeader>{{ item.areaName }}</MDBCardHeader>
+
+                            </MDBCard>
+                        </MDBCardGroup> -->
+
                     </MDBCard>
-                    <MDBCard>
+                    <!-- <MDBCard>
                         <MDBCardTitle>其他</MDBCardTitle>
                         <MDBCardBody>
-                            <MDBTable>
-                                <!-- 数据 -->
-                                <!-- 模块些许展示 -->
-                            </MDBTable>
+                            <MDBTable> -->
+                    <!-- 数据 -->
+                    <!-- 模块些许展示 -->
+                    <!-- </MDBTable>
                         </MDBCardBody>
-                    </MDBCard>
+                    </MDBCard> -->
                 </MDBCol>
             </MDBRow>
         </MDBContainer>
@@ -63,7 +86,7 @@
 </template>
 
 <script setup lang="ts">
-import { MDBCarousel, MDBInput, MDBBtn, MDBIcon, MDBRow, MDBCol, MDBContainer, MDBCard, MDBCardTitle, MDBCardImg, MDBCardGroup, MDBCardText, MDBCardBody, MDBTable } from 'mdb-vue-ui-kit';
+import { MDBCarousel, MDBInput, MDBBtn, MDBIcon, MDBRow, MDBCol, MDBContainer, MDBCard, MDBCardTitle, MDBCardImg, MDBCardGroup, MDBCardText, MDBCardBody, MDBTable, MDBCardHeader } from 'mdb-vue-ui-kit';
 import { reactive, ref } from 'vue';
 import router from '../router';
 
@@ -103,22 +126,22 @@ data.areaList = [
     {
         areaId: 1,
         areaName: '饥荒',
-        picPath: '../assets/img/Fq7AHktaMAA30_L.jpg'
+        picPath: 'http://127.0.0.1:8080/img/bbs_icon/dont%20starve.png'
     },
     {
         areaId: 2,
         areaName: '原神',
-        picPath: 'file:C:/personal/pic/pic/Ft0N9ePagAEs3OH.jpg'
+        picPath: 'http://127.0.0.1:8080/img/bbs_icon/OP.jpg'
     },
     {
         areaId: 3,
         areaName: 'l4d2',
-        picPath: 'file:C:/personal/pic/pic/Ft0N9ePagAEs3OH.jpg'
+        picPath: 'http://127.0.0.1:8080/img/bbs_icon/l4d2.jpg'
     },
     {
         areaId: 4,
         areaName: 'war2',
-        picPath: 'file:C:/personal/pic/pic/Ft0N9ePagAEs3OH.jpg'
+        picPath: 'http://127.0.0.1:8080/img/bbs_icon/war3.jpg'
     },
 ]
 
