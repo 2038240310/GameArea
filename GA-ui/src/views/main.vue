@@ -1,7 +1,7 @@
 <template>
     <div>
         <MDBContainer>
-            <MDBRow>
+            <MDBRow style="display: flex;flex-direction: column;align-items: flex-end;">
                 <MDBCol col="4">
                     <MDBInput v-model="search3" inputGroup :formOutline="false" wrapperClass="mb-3" placeholder="Search"
                         aria-label="Search" aria-describedby="button-addon2">
@@ -30,9 +30,16 @@
                 </MDBCol>
             </MDBRow>
             <MDBRow style="align-items: flex-start;">
-                <MDBCol col="2" style="height: 300px;background-color: gainsboro;">
+                <MDBCol col="2" style="height: 300px;;">
                     <MDBCard>
-                        <MDBCardTitle>话题帖子</MDBCardTitle>
+                        <MDBCardTitle>平台公告</MDBCardTitle>
+                        <el-table :data="data.noticeList" height="300" stripe @current-change="toAreaDetail">
+                            <el-table-column prop="noticeId" label="id" type="index" />
+                            <el-table-column prop="title" label="标题">
+                            
+                            </el-table-column>
+                            <el-table-column prop="createTime" label="发布日期" />
+                        </el-table>
                     </MDBCard>
                 </MDBCol>
                 <MDBCol col="10">
@@ -70,15 +77,23 @@
                         </MDBCardGroup> -->
 
                     </MDBCard>
-                    <!-- <MDBCard>
-                        <MDBCardTitle>其他</MDBCardTitle>
-                        <MDBCardBody>
-                            <MDBTable> -->
-                    <!-- 数据 -->
-                    <!-- 模块些许展示 -->
-                    <!-- </MDBTable>
-                        </MDBCardBody>
-                    </MDBCard> -->
+                    <MDBCard>
+                        <MDBCardTitle>热门话题</MDBCardTitle>
+                        <MDBCard>
+                            <MDBTable class="align-middle mb-0 bg-white">
+                                <thead>
+                                    <th scope="col"><b>标题</b></th>
+                                    <th scope="col"><b>来源</b></th>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="item in data.hotCardList">
+                                        <td>{{ item.title }}</td>
+                                        <td>{{ item.createTime }}</td>
+                                    </tr>
+                                </tbody>
+                            </MDBTable>
+                        </MDBCard>
+                    </MDBCard>
                 </MDBCol>
             </MDBRow>
         </MDBContainer>
@@ -119,9 +134,12 @@ const search3 = ref('');
 
 const data = reactive<any>({
     boardList: [],
-    areaList: []
+    areaList: [],
+    hotCardList: [],
+    noticeList: []
 })
 
+// 静态数据
 data.areaList = [
     {
         areaId: 1,
@@ -144,6 +162,45 @@ data.areaList = [
         picPath: 'http://127.0.0.1:8080/img/bbs_icon/war3.jpg'
     },
 ]
+data.hotCardList = [
+    {
+        cardId: '1001',
+        title: '热门话题！！',
+        createTime: ''
+    },
+    {
+        cardId: '1002',
+        title: '什么时候能做完啊？',
+        createTime: ''
+    },
+    {
+        cardId: '1003',
+        title: '测测你的性格',
+        createTime: ''
+    },
+    {
+        cardId: '1004',
+        title: '老铁们，出货了！！',
+        createTime: ''
+    },
+]
+data.noticeList = [
+    {
+        noticeId: 1,
+        title: '请各位用户遵守网络交流礼仪',
+        createTime: '',
+    },
+    {
+        noticeId: 2,
+        title: '保护好自己的个人隐私，谨防网络诈骗',
+        createTime: '',
+    },
+    {
+        noticeId: 3,
+        title: '该平台目前处于开发当中，欢迎各位用户提供宝贵的改进意见',
+        createTime: '',
+    },
+]
 
 function toArea(areaId: string) {
     console.log('to area areaId:' + areaId);
@@ -154,6 +211,11 @@ function toArea(areaId: string) {
             areaId: areaId
         }
     })
+}
+
+const toAreaDetail = (row: any) => {
+    console.log(row);
+    // 跳转
 }
 
 </script>
