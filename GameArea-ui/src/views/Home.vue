@@ -29,52 +29,52 @@
           </MDBDropdown>
         </MDBNavbarItem>
       </ul>
-      
+
     </MDBNavbar>
-    
+
     <!-- main -->
     <div class="p-5 text-center bg-light">
-      
+
       <router-view />
     </div>
 
     <!-- foot -->
     <MDBFooter :text="['center', 'lg-start']" bg="gray">
-    <!-- Grid container -->
-    <MDBContainer class="p-4">
-      <MDBRow style="margin-left: 10px;">
-        <MDBCol lg="3" md="6" class="mb-4 mb-md-0">
-          <h5 class="text-uppercase">Developer</h5>
-          <ul class="list-unstyled mb-0">
-            <hr />
-            <li>
-              <a href="https://github.com/2038240310" class="text-dark">翁望舒</a>
-            </li>
-          </ul>
-        </MDBCol>
-        <MDBCol lg="3" md="6" class="mb-4 mb-md-0">
-          <h5 class="text-uppercase">联系方式</h5>
-          <ul class="list-unstyled mb-0">
-            <hr />
-            <MDBRow>
-              <MDBCol col="3">qq</MDBCol>
-              <MDBCol col="6">1026723244</MDBCol>
-            </MDBRow>
-            <MDBRow>
-              <MDBCol col="3">tel</MDBCol>
-              <MDBCol col="6">18596760847</MDBCol>
-            </MDBRow>
-          </ul>
-        </MDBCol>
-      </MDBRow>      
-    </MDBContainer>
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
-      git depository:
-      <a class="text-dark" href="https://github.com/2038240310/GameArea"> 
-        link
-      </a>
-    </div>
-  </MDBFooter>
+      <!-- Grid container -->
+      <MDBContainer class="p-4">
+        <MDBRow style="margin-left: 10px;">
+          <MDBCol lg="3" md="6" class="mb-4 mb-md-0">
+            <h5 class="text-uppercase">Developer</h5>
+            <ul class="list-unstyled mb-0">
+              <hr />
+              <li>
+                <a href="https://github.com/2038240310" class="text-dark">翁望舒</a>
+              </li>
+            </ul>
+          </MDBCol>
+          <MDBCol lg="3" md="6" class="mb-4 mb-md-0">
+            <h5 class="text-uppercase">联系方式</h5>
+            <ul class="list-unstyled mb-0">
+              <hr />
+              <MDBRow>
+                <MDBCol col="3">qq</MDBCol>
+                <MDBCol col="6">1026723244</MDBCol>
+              </MDBRow>
+              <MDBRow>
+                <MDBCol col="3">tel</MDBCol>
+                <MDBCol col="6">18596760847</MDBCol>
+              </MDBRow>
+            </ul>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
+        git depository:
+        <a class="text-dark" href="https://github.com/2038240310/GameArea">
+          link
+        </a>
+      </div>
+    </MDBFooter>
   </header>
 </template>
 
@@ -93,14 +93,15 @@ import {
   MDBRow,
   MDBCol,
   MDBNavbarBrand,
-MDBFooter
+  MDBContainer,
+  MDBFooter
 } from 'mdb-vue-ui-kit';
 
 import { ref } from 'vue';
 
 function accountQuit() {
   console.log('account quit');
-  
+
 }
 
 const dropdown6 = ref(false);

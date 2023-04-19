@@ -1,6 +1,7 @@
 <template>
     <div>
         <MDBContainer>
+            <!-- row search -->
             <MDBRow style="display: flex;flex-direction: column;align-items: flex-end;">
                 <MDBCol col="4">
                     <MDBInput v-model="search3" inputGroup :formOutline="false" wrapperClass="mb-3" placeholder="Search"
@@ -9,6 +10,8 @@
                     </MDBInput>
                 </MDBCol>
             </MDBRow>
+
+            <!-- row1 -->
             <MDBRow style="margin-bottom: 1rem;">
                 <MDBCol col="9">
                     <MDBCarousel v-model="carousel5" :items="items5" />
@@ -30,46 +33,32 @@
                     </MDBCard>
                 </MDBCol>
             </MDBRow>
-            <MDBRow style="align-items: flex-start;">
-                <MDBCol col="2" style="height: 300px;">
-                    <MDBCard>
-                        <MDBCardTitle>平台公告</MDBCardTitle>
-                        <el-table :data="mainPageData.noticeList" height="300" stripe @current-change="toAreaDetail">
-                            <!-- <el-table-column prop="noticeId" label="id" type="index" /> -->
-                            <el-table-column width="130" prop="title" label="标题">
 
-                            </el-table-column>
-                            <el-table-column prop="createTime" label="发布日期" />
-                        </el-table>
-                    </MDBCard>
-                </MDBCol>
-                <MDBCol col="10">
-                    <MDBCard class="mb-4">
-                        <MDBRow class="">
-                            <MDBCol col="10">
-                                <MDBCardTitle>热门分区</MDBCardTitle>
-                            </MDBCol>
-                            <MDBCol col="2">
-                                <!-- 跳入areaTotalPage -->
-                                更多
-                            </MDBCol>
-                        </MDBRow>
-
-                        <hr />
-
-                        <MDBRow style="height: 220px;">
-                            <MDBCardGroup>
-                                <div v-for="item in mainPageData.areaList">
-                                    <MDBCard class="m-1" style="width: 100px;height: 100px;" @click="toArea(item.id)">
-                                        <MDBCardImg :src="item.areaPicPath" top alt="..."
-                                            style="object-fit: cover;height: 75%;" />
-                                        <MDBCardTitle>{{ item.areaName }}</MDBCardTitle>
-                                    </MDBCard>
-                                </div>
-                            </MDBCardGroup>
-                        </MDBRow>
-
-                        <!-- <MDBCardGroup style="display: flex;flex-wrap: wrap;flex-direction: row;">
+            <!-- row2 -->
+            <MDBRow>
+                <MDBCard class="mb-4">
+                    <MDBRow>
+                        <MDBCol col="10">
+                            <MDBCardTitle>热门分区</MDBCardTitle>
+                        </MDBCol>
+                        <MDBCol col="2">
+                            <!-- 跳入areaTotalPage -->
+                            <MDBBtn color="link" @click="toAreaMore">更多</MDBBtn>
+                        </MDBCol>
+                    </MDBRow>
+                    <hr />
+                    <MDBRow style="height: 220px;">
+                        <MDBCardGroup>
+                            <div v-for="item in mainPageData.areaList">
+                                <MDBCard class="m-1" style="width: 100px;height: 100px;" @click="toArea(item.id)">
+                                    <MDBCardImg :src="item.areaPicPath" top alt="..."
+                                        style="object-fit: cover;height: 75%;" />
+                                    <MDBCardTitle>{{ item.areaName }}</MDBCardTitle>
+                                </MDBCard>
+                            </div>
+                        </MDBCardGroup>
+                    </MDBRow>
+                    <!-- <MDBCardGroup style="display: flex;flex-wrap: wrap;flex-direction: row;">
                             <MDBCard v-for="item in mainPageData.areaList" class="m-1" border="select" @click="toArea(item.areaId)"
                                 style="width: 100px;height: 100px;">
                                 
@@ -78,8 +67,23 @@
 
                             </MDBCard>
                         </MDBCardGroup> -->
+                </MDBCard>
+            </MDBRow>
 
+            <!-- row3 -->
+            <MDBRow style="align-items: flex-start;">
+                <MDBCol col="3" style="height: 300px;">
+                    <MDBCard>
+                        <MDBCardTitle>平台公告</MDBCardTitle>
+                        <el-table :data="mainPageData.noticeList" height="300" stripe @current-change="toNoticeDetail">
+                            <!-- <el-table-column prop="noticeId" label="id" type="index" /> -->
+                            <el-table-column width="130" prop="title" label="标题" />
+                            <el-table-column prop="createTime" label="发布日期" />
+                        </el-table>
                     </MDBCard>
+                </MDBCol>
+
+                <MDBCol col="9">
                     <MDBCard>
                         <MDBCardTitle>热门话题</MDBCardTitle>
                         <MDBCard>
@@ -144,28 +148,28 @@ const mainPageData = reactive<any>({
 })
 
 // 静态数据
-// mainPageData.areaList = [
-//     {
-//         areaId: 1,
-//         areaName: '饥荒',
-//         areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/dont%20starve.png'
-//     },
-//     {
-//         areaId: 2,
-//         areaName: '原神',
-//         areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/OP.jpg'
-//     },
-//     {
-//         areaId: 3,
-//         areaName: 'l4d2',
-//         areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/l4d2.jpg'
-//     },
-//     {
-//         areaId: 4,
-//         areaName: 'war3',
-//         areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/war3.jpg'
-//     },
-// ]
+mainPageData.areaList = [
+    {
+        areaId: 1,
+        areaName: '饥荒',
+        areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/dont%20starve.png'
+    },
+    {
+        areaId: 2,
+        areaName: '原神',
+        areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/OP.jpg'
+    },
+    {
+        areaId: 3,
+        areaName: 'l4d2',
+        areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/l4d2.jpg'
+    },
+    {
+        areaId: 4,
+        areaName: 'war3',
+        areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/war3.jpg'
+    },
+]
 mainPageData.hotCardList = [
     {
         cardId: '1001',
@@ -211,6 +215,7 @@ onMounted(() => {
     getAreaAreaList();
 });
 
+// 跳转至选择分区
 function toArea(areaId: string) {
     console.log('to area areaId:' + areaId);
 
@@ -222,37 +227,34 @@ function toArea(areaId: string) {
     })
 }
 
-const toAreaDetail = (row: any) => {
-    console.log(row);
-    // 跳转
+// 跳转至分区选择详细页
+function toAreaMore() {
+    router.push({
+        name: 'area-more'
+    })
 }
 
+// 跳转至点击公告详细页
+function toNoticeDetail(row: any) {
+    console.log(row);
+    // 跳转方法
+}
+
+// 获取分区信息
 function getAreaAreaList() {
     listAreaArea().then((res: any) => {
         // console.log(res.data);
         let result = res.data.data
         // console.log(result);
 
-        Object.entries(result).forEach(([k,v]:[any,any]) => {
+        Object.entries(result).forEach(([k, v]: [any, any]) => {
             v.areaPicPath = import.meta.env.VITE_BASE_API + v.areaPicPath
         })
-        
+
         mainPageData.areaList = result;
     })
 }
 
 </script>
 
-<style scoped>
-.test1 {
-    background-color: rgba(255, 0, 0, .3);
-}
-
-.test2 {
-    background-color: rgba(0, 255, 0, .3);
-}
-
-.test3 {
-    background-color: rgba(0, 0, 255, .3);
-}
-</style>
+<style scoped></style>

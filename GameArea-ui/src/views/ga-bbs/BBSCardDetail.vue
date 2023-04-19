@@ -74,6 +74,9 @@
                                 </MDBAccordion>
                             </div>
 
+                            <MDBBtn color="select" v-if="item.replyOfList.length <= 0">
+                                回复
+                            </MDBBtn>
                         </MDBCardBody>
                     </MDBCol>
                 </MDBRow>

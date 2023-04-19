@@ -93,9 +93,31 @@ const routes = [
         children: [
           {
             path: '/message/notice',
-            component: () => import('@/views/message/notice.vue'),
+            component: () => import('@/views/message/noticeDetail.vue'),
             name: 'notice',
           }
+        ]
+      },
+      {
+        path: '/more',
+        name: 'more',
+        children: [
+          {
+            // 分区更多详细
+            path: '/more/area',
+            component: () => import('@/views/area/areaMore.vue'),
+            name: 'area-more'
+          },
+        ]
+      },
+      {
+        path: '/create',
+        children: [
+          {
+            path: '/create/area',
+            component: () => import('@/views/area/createArea.vue'),
+            name: 'create-area'
+          },
         ]
       },
       {
