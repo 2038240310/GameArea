@@ -1,68 +1,78 @@
 <template>
     <div>
-        <h3 style="display: flex;">{{ route.query.cardId }}</h3>
         <!-- 帖子主栏目 -->
-        <MDBCard class="mb-3">
-            <MDBRow class="g-0" style="display: flex; flex-wrap: nowrap;">
-                <MDBCol md="8" style="width: 80%; background-color: rgba(0, 255, 0, 0.3);">
-                    <MDBCardBody>
-                        <MDBCardTitle>该栏目标题</MDBCardTitle>
-                        <MDBCardText>
-                            <small class="text-muted">createTime</small>
-                        </MDBCardText>
-                    </MDBCardBody>
-                </MDBCol>
-                <MDBCol md="2" style="background-color: rgba(255, 0, 0, 0.3);">
-                    <MDBCardImg fluid src="" alt="...">头像</MDBCardImg>
-                    <div>发帖人信息</div>
-                </MDBCol>
+        <MDBCard class="mb-3" style="width: 80%;">
+            <MDBRow class="g-0 mb-4 mt-4" style="display: flex; flex-wrap: nowrap;">
+                <MDBCol md="8" style="width: 80%;">
 
+                    <MDBCardTitle><b style="font-size: 25px;">{{ contextData.cardInfo.title }}</b></MDBCardTitle>
+                    <MDBCardText>
+                        <small class="text-muted">{{ contextData.cardInfo.createTime }}</small>
+                    </MDBCardText>
+
+                </MDBCol>
+                <MDBCol md="2" style="">
+                    <MDBCardImg class="rounded-circle" fluid :src="contextData.authorUser.avatarPath" alt="..." style="width: 50px;" />
+                    <div>{{ contextData.authorUser.userName }}</div>
+                </MDBCol>
             </MDBRow>
+            <hr />
             <MDBRow>
                 <!-- 主要信息 -->
                 <MDBCol>
                     <MDBCard>
+                        <!-- 标题图片 -->
+                        <MDBCardImg class="mb-5" :src="contextData.cardInfo.picPath" style="width: 30%;" />
+                        <!-- 正文说明内容 -->
                         <MDBCardTitle>
-                            信息
+                            {{ contextData.cardInfo.text }}
                         </MDBCardTitle>
-                        <MDBCardText>
-                            帖子内容-长文章
-                        </MDBCardText>
                     </MDBCard>
-                    <MDBCard>
-                        分享文件栏目功能交互
+                    <hr />
+                    <MDBCard class="mb-2" style="height: 70px;">
+                        <!-- 分享文件栏目功能交互 -->
+                        <MDBBtn color="primary" style="width: 150px;">内容下载</MDBBtn>
                     </MDBCard>
+                    <!-- 预览内容图片 -->
+                    <MDBCard v-if="contextData.cardInfo.picPathList.length > 0">
+                        <MDBCardText>内容预览</MDBCardText>
+                        <MDBCardImg class="mb-1" v-for="pic in contextData.cardInfo.picPathList" :src="pic.picPath"
+                            style="width: 40%;" />
+                    </MDBCard>
+
                 </MDBCol>
             </MDBRow>
         </MDBCard>
         <hr />
-        <!-- 回复列表 -->
+
+        <!-- 评论区 -->
+        <h3 style="display: flex;">评论({{ replyList.list.length }})</h3>
         <MDBCard style="width: 95%;">
-            <div v-for="item in replyList.list">
-                <MDBCard class="mb-3">
-                    <MDBRow class="g-0" style="display: flex; flex-wrap: nowrap;">
-                        <MDBCol md="2" style="background-color: rgba(255, 0, 0, 0.3);">
-                            <MDBCardImg fluid src="" alt="..." />
-                            <MDBCardText>{{ item.userId }}</MDBCardText>
-                        </MDBCol>
-                        <MDBCol md="8" style="width: 80%; ">
-                            <MDBCardBody>
-                                <MDBCardText>
-                                    {{ item.message }}
-                                </MDBCardText>
-                            </MDBCardBody>
-                        </MDBCol>
-                    </MDBRow>
-                </MDBCard>
-            </div>
             <!-- 发送回复 -->
-            <hr />
+            
             <div>
                 <MDBTextarea label="回复" type="text" />
             </div>
             <MDBBtnGroup>
                 <MDBBtn color="primary">发送</MDBBtn>
             </MDBBtnGroup>
+            <hr />
+            <!-- 回复列表 -->
+            <div v-for="item in replyList.list">
+                <MDBCard class="mb-3">
+                    <MDBRow class="g-0" style="display: flex; flex-wrap: nowrap;">
+                        <MDBCol md="2" style="">
+                            <MDBCardImg fluid src="" alt="..." />
+                            <MDBCardText>{{ item.userId }}</MDBCardText>
+                        </MDBCol>
+                        <MDBCol md="8" style="width: 80%;display: flex;">
+                                <MDBCardText>
+                                    {{ item.message }}
+                                </MDBCardText>
+                        </MDBCol>
+                    </MDBRow>
+                </MDBCard>
+            </div>
         </MDBCard>
 
 
@@ -81,6 +91,8 @@ const replyList = reactive<any>({
     list: []
 })
 
+let contextData = reactive<any>({})
+
 // 静态信息
 replyList.list = [
     {
@@ -92,6 +104,45 @@ replyList.list = [
         message: '欢迎',
     },
 ]
+contextData = {
+    authorUser: {
+        userId: '1',
+        avatarPath: 'http://localhost:8080/img/user/avatar_icon/user1.jpg',
+        userName: 'wws'
+    },
+    cardInfo: {
+        title: '这是一个测试标题',
+        picPath: 'http://127.0.0.1:8080/img/share/test_card/top.jpg',
+        text: ' 勉强还能看看的资源吧，如果大家喜欢，那么会考虑继续发。',
+        createTime: '',
+        updateTime: '',
+        sourceLink: '',
+        sourceInfo: '',
+        picPathList: [
+            {
+                picPath: 'http://127.0.0.1:8080/img/share/test_card/pre1.jpg'
+            },
+            {
+                picPath: 'http://127.0.0.1:8080/img/share/test_card/pre2.jpg'
+            },
+            {
+                picPath: 'http://127.0.0.1:8080/img/share/test_card/pre3.jpg'
+            },
+            {
+                picPath: 'http://127.0.0.1:8080/img/share/test_card/pre4.jpg'
+            },
+            {
+                picPath: 'http://127.0.0.1:8080/img/share/test_card/pre5.jpg'
+            },
+            {
+                picPath: 'http://127.0.0.1:8080/img/share/test_card/pre6.jpg'
+            },
+            {
+                picPath: 'http://127.0.0.1:8080/img/share/test_card/pre7.jpg'
+            },
+        ]
+    }
+}
 
 </script>
 

@@ -3,11 +3,11 @@
 CREATE TABLE `area_area` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'pk',
   `area_name` varchar(32) NOT NULL COMMENT '分区域名',
-  `area_pic_source` varchar(100) DEFAULT NULL COMMENT '分区显示图表',
+  `area_pic_path` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '分区显示图表',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `status` varchar(2) NOT NULL DEFAULT '0' COMMENT '状态 (0.启用 1.关闭 2.弃用)',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='平台最高级分区表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='平台最高级分区表';
 
 
 -- game_area_db.area_model_permissions definition
@@ -36,7 +36,7 @@ CREATE TABLE `area_user` (
   `status` int NOT NULL DEFAULT '0' COMMENT '状态',
   `user_permissions` int NOT NULL DEFAULT '0' COMMENT '用户权限 (0.游客 1.普通用户 97.模块管理员 98.平台管理员 99.king)',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='平台用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='平台用户表';
 
 
 -- game_area_db.area_user_info definition
@@ -78,7 +78,7 @@ CREATE TABLE `bbs_card` (
   `update_time` datetime NOT NULL COMMENT '修改日期',
   `status` varchar(2) NOT NULL DEFAULT '0' COMMENT '状态，0启用，1封贴，2关闭',
   PRIMARY KEY (`card_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='论坛帖子表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='论坛帖子表';
 
 
 -- game_area_db.bbs_card_info definition
@@ -89,7 +89,7 @@ CREATE TABLE `bbs_card_info` (
   `like_num` int NOT NULL DEFAULT '0' COMMENT '喜欢数量',
   `comment_num` int NOT NULL DEFAULT '0' COMMENT '评论数量',
   `source_path` varchar(32) DEFAULT NULL COMMENT '富文本、图片路径',
-  `message` mediumblob COMMENT '发帖信息内容',
+  `message` varchar(255) DEFAULT NULL COMMENT '发帖信息内容',
   PRIMARY KEY (`info_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='论坛帖子信息表';
 
@@ -98,14 +98,14 @@ CREATE TABLE `bbs_card_info` (
 
 CREATE TABLE `bbs_reply` (
   `reply_id` bigint NOT NULL AUTO_INCREMENT COMMENT 'pk',
-  `message` mediumblob COMMENT '回复消息',
+  `message` varchar(255) DEFAULT NULL COMMENT '回复消息',
   `card_id` varchar(32) NOT NULL COMMENT '所属帖子id',
   `create_by` varchar(32) NOT NULL COMMENT '创建者',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '修改时间',
   `status` varchar(2) NOT NULL DEFAULT '0' COMMENT '状态，0启用，1关闭',
   PRIMARY KEY (`reply_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='论坛帖子回复信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='论坛帖子回复信息表';
 
 
 -- game_area_db.bbs_reply_reply definition
@@ -119,9 +119,9 @@ CREATE TABLE `bbs_reply_reply` (
   `create_by` varchar(32) NOT NULL COMMENT '创建者id',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '修改时间',
-  `status` varchar(2) NOT NULL COMMENT '状态，0启用，1关闭',
+  `status` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '状态，0启用，1关闭',
   PRIMARY KEY (`rr_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='论坛帖子二级回复消息表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='论坛帖子二级回复消息表';
 
 
 -- game_area_db.bbs_user_permissions definition
@@ -175,8 +175,9 @@ CREATE TABLE `share_card` (
   `update_by` varchar(32) NOT NULL COMMENT '修改人id，不做说明默认创建人为修改人',
   `update_time` datetime NOT NULL COMMENT '修改时间，初始化默认为创建时间',
   `status` varchar(2) NOT NULL DEFAULT '0' COMMENT '状态，0启用，1关闭',
+  `pic_path` varchar(128) DEFAULT NULL COMMENT '预览图路径',
   PRIMARY KEY (`card_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='分享站帖子表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='分享站帖子表';
 
 
 -- game_area_db.share_card_info definition
@@ -188,7 +189,7 @@ CREATE TABLE `share_card_info` (
   `source_info` varchar(100) DEFAULT NULL COMMENT '资源信息',
   `source_link` varchar(100) DEFAULT NULL COMMENT '资源相关地址',
   PRIMARY KEY (`info_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='资源站帖子信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='资源站帖子信息表';
 
 
 -- game_area_db.share_card_reply definition
@@ -216,7 +217,7 @@ CREATE TABLE `share_card_tag` (
   `update_time` datetime NOT NULL COMMENT '修改时间',
   `status` varchar(2) NOT NULL DEFAULT '0' COMMENT '状态，0启用，1关闭',
   PRIMARY KEY (`rel_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='资源站帖子-标签关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='资源站帖子-标签关联表';
 
 
 -- game_area_db.share_card_type definition
@@ -228,7 +229,7 @@ CREATE TABLE `share_card_type` (
   `update_time` datetime NOT NULL COMMENT '修改时间',
   `status` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '0' COMMENT '状态，0启用，1关闭',
   PRIMARY KEY (`type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='分享站帖子类型表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='分享站帖子类型表';
 
 
 -- game_area_db.share_tag definition
@@ -240,7 +241,7 @@ CREATE TABLE `share_tag` (
   `update_time` datetime NOT NULL COMMENT '修改时间',
   `status` varchar(2) NOT NULL DEFAULT '0' COMMENT '状态，0启用，1关闭',
   PRIMARY KEY (`tag_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='分享站标签管理表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='分享站标签管理表';
 
 
 -- game_area_db.sign_board definition
@@ -280,4 +281,4 @@ CREATE TABLE `sign_type` (
   `update_time` datetime NOT NULL COMMENT '修改时间',
   `status` varchar(2) NOT NULL DEFAULT '0' COMMENT '状态，0启用，1关闭',
   PRIMARY KEY (`type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='公告版类型管理表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='公告版类型管理表';

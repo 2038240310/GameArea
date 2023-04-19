@@ -31,16 +31,14 @@ import {
     MDBBtn,
     MDBNavbar,
     MDBNavbarToggler,
-    MDBNavbarBrand,
     MDBNavbarNav,
     MDBNavbarItem,
     MDBCollapse,
-    MDBDropdown,
-    MDBDropdownToggle,
-    MDBDropdownMenu,
-    MDBDropdownItem
 } from 'mdb-vue-ui-kit';
 import { ref } from 'vue';
+import { useRoute } from 'vue-router'
+
+const router = useRoute()
 
 const collapse1 = ref(false);
 </script>

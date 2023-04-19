@@ -1,7 +1,7 @@
 <!-- ga-bbs -->
 <template>
     <div>
-        <h3>交流论坛</h3>
+        <h3 style="display: flex;">交流论坛</h3>
         <!-- 帖子 -->
         <MDBCard style="width: 90%;">
             <MDBCardGroup v-for="item in bbsCardList.list" style="width: 98%;">

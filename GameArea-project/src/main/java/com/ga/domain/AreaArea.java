@@ -23,7 +23,7 @@ public class AreaArea
     private String areaName;
 
     /** 分区显示图表 */
-    private String areaPicSource;
+    private String areaPicPath;
 
     /** 创建时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

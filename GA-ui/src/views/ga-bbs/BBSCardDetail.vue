@@ -4,14 +4,14 @@
         <MDBCard class="mb-3">
             <MDBRow>
                 <MDBCol col="10">
-                    <MDBCardTitle class="card-text-start ms-3">{{ route.query.title }}</MDBCardTitle>
+                    <MDBCardTitle class="card-text-start ms-3"><h2>{{ route.query.title }}</h2></MDBCardTitle>
                 </MDBCol>
                 <MDBCol col="2">
                     创建于: {{ route.query.createTime }}
                 </MDBCol>
             </MDBRow>
-            <MDBRow class="g-0" style="display: flex; flex-wrap: nowrap;">
-                <MDBCol md="2" style="background-color: rgba(255, 0, 0, 0.3);">
+            <!-- <MDBRow class="g-0" style="display: flex; flex-wrap: nowrap;">
+                <MDBCol md="2">
                     <MDBCardImg fluid src="" alt="..." />
                 </MDBCol>
                 <MDBCol md="8" style="width: 80%;">
@@ -24,15 +24,15 @@
                         </MDBCardText>
                     </MDBCardBody>
                 </MDBCol>
-            </MDBRow>
+            </MDBRow> -->
         </MDBCard>
         <!-- 回复列表 -->
-        <MDBCardGroup v-for="item in replyList.list">
-            <MDBCard class="mb-3">
+        <MDBCardGroup v-for="item in replyList.list" style="width: 80%;">
+            <MDBCard border="message" class="mb-3">
                 <MDBRow class="g-0" style="display: flex; flex-wrap: nowrap;">
-                    <MDBCol md="2" style="background-color: rgba(255, 0, 0, 0.3);">
-                        <MDBCardImg fluid src="" alt="..." />
-                        <MDBCardText>{{ item.createName }}</MDBCardText>
+                    <MDBCol md="2">
+                        <MDBCardImg fluid :src="item.avatarPath" circle alt="..." style="width: 150px;" />
+                        <MDBCardText><b>{{ item.createName }}</b></MDBCardText>
                     </MDBCol>
                     <MDBCol md="8" style="width: 80%; ">
                         <MDBCardBody>
@@ -51,7 +51,7 @@
                                             <MDBRow>
                                                 <MDBCol col="2">
                                                     <MDBCard>
-                                                        <MDBCardText>{{ replyOf.createName }}</MDBCardText>
+                                                        <MDBCardText><b>{{ replyOf.createName }}</b></MDBCardText>
                                                     </MDBCard>
                                                 </MDBCol>
                                                 <MDBCol col="10">
@@ -104,18 +104,26 @@ const replyList = reactive<any>({
     list: []
 })
 
+const userList = reactive<any>({
+    list: []
+})
+
 // 静态信息
 replyList.list = [
     {
         userId: '1',
         replyId: '1',
         message: '你好',
+        createBy: '1',
         createName: 'wws',
+        avatarPath: 'http://127.0.0.1:8080/img/user/avatar_icon/user1.jpg',
         createTime: '2023-04-16 18:00',
         replyOfList: [
             {
                 rrId: '1',
+                createBy: '2',
                 createName: 'toto',
+                avatarPath: 'http://127.0.0.1:8080/img/user/avatar_icon/toto.jpg',
                 message: '幸会幸会',
                 createTime: '2023-04-16 20:12'
             }
@@ -125,30 +133,55 @@ replyList.list = [
         userId: '2',
         replyId: '2',
         message: '欢迎',
+        createBy: '3',
         createName: 'nnnn',
+        avatarPath: 'http://127.0.0.1:8080/img/user/avatar_icon/default.png',
         createTime: '2023-04-16 18:32',
         replyOfList: []
     },
     {
         userId: '1',
         replyId: '3',
-        message: '我将注入测试数据',
+        message: '这是测试数据',
+        createBy: '1',
         createName: 'wws',
+        avatarPath: 'http://127.0.0.1:8080/img/user/avatar_icon/user1.jpg',
         createTime: '2023-04-16 18:00',
         replyOfList: [
             {
                 rrId: '2',
+                createBy: '2',
                 createName: 'toto',
+                avatarPath: 'http:127.0.0.1:8080/img/user/avatar_icon/toto.jpg',
                 message: '？',
                 createTime: '2023-04-16 20:12'
             },
             {
                 rrId: '3',
+                createBy: '1',
                 createName: 'wws',
+                avatarPath: 'http:127.0.0.1:8080/img/user/avatar_icon/user1.jpg',
                 message: '二次回复，日期不做修正',
                 createTime: '2023-04-16 20:12'
             },
         ]
+    },
+]
+userList.list = [
+    {
+        userId: '1',
+        nickname: 'wws',
+        avatarPath: 'http:127.0.0.1:8080/img/user/avatar_icon/user1.jpg'
+    },
+    {
+        userId: '2',
+        nickname: 'toto',
+        avatarPath: 'http:127.0.0.1:8080/img/user/avatar_icon/toto.jpg'
+    },
+    {
+        userId: '3',
+        nickname: 'nnnn',
+        avatarPath: 'http:127.0.0.1:8080/img/user/avatar_icon/default.png'
     },
 ]
 

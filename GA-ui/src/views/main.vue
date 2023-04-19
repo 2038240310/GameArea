@@ -21,30 +21,31 @@
                             Welcome, gamearea!
                         </MDBCardTitle>
                         <br />
-                        <MDBCardText>
+                        <MDBCardText style="width: 70%;align-self: center;">
                             gamearea平台提供交流论坛、资料数据、资源分享站点
                             <br />
-                            祝愿您在这里玩的开心！
+                            <br />
+                            <small>祝您在这里玩的开心！</small>
                         </MDBCardText>
                     </MDBCard>
                 </MDBCol>
             </MDBRow>
             <MDBRow style="align-items: flex-start;">
-                <MDBCol col="2" style="height: 300px;;">
+                <MDBCol col="2" style="height: 300px;">
                     <MDBCard>
                         <MDBCardTitle>平台公告</MDBCardTitle>
-                        <el-table :data="data.noticeList" height="300" stripe @current-change="toAreaDetail">
-                            <el-table-column prop="noticeId" label="id" type="index" />
-                            <el-table-column prop="title" label="标题">
-                            
+                        <el-table :data="mainPageData.noticeList" height="300" stripe @current-change="toAreaDetail">
+                            <!-- <el-table-column prop="noticeId" label="id" type="index" /> -->
+                            <el-table-column width="130" prop="title" label="标题">
+
                             </el-table-column>
                             <el-table-column prop="createTime" label="发布日期" />
                         </el-table>
                     </MDBCard>
                 </MDBCol>
                 <MDBCol col="10">
-                    <MDBCard>
-                        <MDBRow>
+                    <MDBCard class="mb-4">
+                        <MDBRow class="">
                             <MDBCol col="10">
                                 <MDBCardTitle>热门分区</MDBCardTitle>
                             </MDBCol>
@@ -54,20 +55,22 @@
                             </MDBCol>
                         </MDBRow>
 
+                        <hr />
 
-                        <MDBCardGroup>
-                            <div v-for="item in data.areaList">
-                                <MDBCard class="m-1" style="width: 100px;height: 100px;" @click="toArea(item.boardId)">
-                                    <MDBCardImg :src="item.picPath" top alt="..." style="object-fit: cover;height: 75%;" />
-
-                                    <MDBCardTitle>{{ item.areaName }}</MDBCardTitle>
-
-                                </MDBCard>
-                            </div>
-                        </MDBCardGroup>
+                        <MDBRow style="height: 220px;">
+                            <MDBCardGroup>
+                                <div v-for="item in mainPageData.areaList">
+                                    <MDBCard class="m-1" style="width: 100px;height: 100px;" @click="toArea(item.id)">
+                                        <MDBCardImg :src="item.areaPicPath" top alt="..."
+                                            style="object-fit: cover;height: 75%;" />
+                                        <MDBCardTitle>{{ item.areaName }}</MDBCardTitle>
+                                    </MDBCard>
+                                </div>
+                            </MDBCardGroup>
+                        </MDBRow>
 
                         <!-- <MDBCardGroup style="display: flex;flex-wrap: wrap;flex-direction: row;">
-                            <MDBCard v-for="item in data.areaList" class="m-1" border="select" @click="toArea(item.areaId)"
+                            <MDBCard v-for="item in mainPageData.areaList" class="m-1" border="select" @click="toArea(item.areaId)"
                                 style="width: 100px;height: 100px;">
                                 
                                     <MDBCardImg overlay :src="item.picPath" />
@@ -86,7 +89,7 @@
                                     <th scope="col"><b>来源</b></th>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="item in data.hotCardList">
+                                    <tr v-for="item in mainPageData.hotCardList">
                                         <td>{{ item.title }}</td>
                                         <td>{{ item.createTime }}</td>
                                     </tr>
@@ -102,29 +105,30 @@
 
 <script setup lang="ts">
 import { MDBCarousel, MDBInput, MDBBtn, MDBIcon, MDBRow, MDBCol, MDBContainer, MDBCard, MDBCardTitle, MDBCardImg, MDBCardGroup, MDBCardText, MDBCardBody, MDBTable, MDBCardHeader } from 'mdb-vue-ui-kit';
-import { reactive, ref } from 'vue';
+import { reactive, ref, onMounted } from 'vue';
 import router from '../router';
+// 服务器api
+import { listAreaArea } from '@/api/ga/areaArea.js'
 
 // 轮播图demo
 const items5 = [
     {
         src: "https://mdbootstrap.com/img/Photos/Slides/img%20(15).webp",
         alt: "...",
-        label: "First slide label",
-        caption: "Nulla vitae elit libero, a pharetra augue mollis interdum."
+        label: "欢迎来到GameArea游戏攻略交流平台",
+        caption: "快找寻您感兴趣的分区，与同好们交流吧！"
     },
     {
         src: "https://mdbootstrap.com/img/Photos/Slides/img%20(22).webp",
         alt: "...",
-        label: "Second slide label",
-        caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        label: "请注意您的交流礼仪",
+        caption: "请各位用户注意自身的网络交流文明礼仪，如有遇到问题，请资讯管理员"
     },
     {
         src: "https://mdbootstrap.com/img/Photos/Slides/img%20(23).webp",
         alt: "...",
-        label: "Third slide label",
-        caption:
-            "Praesent commodo cursus magna, vel scelerisque nisl consectetur."
+        label: "关于GameArea的建设",
+        caption: "GameArea平台的建设需要您的一份力量，请给我们您宝贵的意见，我们将不断变得更好"
     }
 ];
 
@@ -132,7 +136,7 @@ const carousel5 = ref(0);
 
 const search3 = ref('');
 
-const data = reactive<any>({
+const mainPageData = reactive<any>({
     boardList: [],
     areaList: [],
     hotCardList: [],
@@ -140,29 +144,29 @@ const data = reactive<any>({
 })
 
 // 静态数据
-data.areaList = [
-    {
-        areaId: 1,
-        areaName: '饥荒',
-        picPath: 'http://127.0.0.1:8080/img/bbs_icon/dont%20starve.png'
-    },
-    {
-        areaId: 2,
-        areaName: '原神',
-        picPath: 'http://127.0.0.1:8080/img/bbs_icon/OP.jpg'
-    },
-    {
-        areaId: 3,
-        areaName: 'l4d2',
-        picPath: 'http://127.0.0.1:8080/img/bbs_icon/l4d2.jpg'
-    },
-    {
-        areaId: 4,
-        areaName: 'war2',
-        picPath: 'http://127.0.0.1:8080/img/bbs_icon/war3.jpg'
-    },
-]
-data.hotCardList = [
+// mainPageData.areaList = [
+//     {
+//         areaId: 1,
+//         areaName: '饥荒',
+//         areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/dont%20starve.png'
+//     },
+//     {
+//         areaId: 2,
+//         areaName: '原神',
+//         areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/OP.jpg'
+//     },
+//     {
+//         areaId: 3,
+//         areaName: 'l4d2',
+//         areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/l4d2.jpg'
+//     },
+//     {
+//         areaId: 4,
+//         areaName: 'war3',
+//         areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/war3.jpg'
+//     },
+// ]
+mainPageData.hotCardList = [
     {
         cardId: '1001',
         title: '热门话题！！',
@@ -184,7 +188,7 @@ data.hotCardList = [
         createTime: ''
     },
 ]
-data.noticeList = [
+mainPageData.noticeList = [
     {
         noticeId: 1,
         title: '请各位用户遵守网络交流礼仪',
@@ -202,12 +206,17 @@ data.noticeList = [
     },
 ]
 
+// 页面加载
+onMounted(() => {
+    getAreaAreaList();
+});
+
 function toArea(areaId: string) {
     console.log('to area areaId:' + areaId);
 
     router.push({
         name: 'area',
-        params: {
+        query: {
             areaId: areaId
         }
     })
@@ -216,6 +225,20 @@ function toArea(areaId: string) {
 const toAreaDetail = (row: any) => {
     console.log(row);
     // 跳转
+}
+
+function getAreaAreaList() {
+    listAreaArea().then((res: any) => {
+        // console.log(res.data);
+        let result = res.data.data
+        // console.log(result);
+
+        Object.entries(result).forEach(([k,v]:[any,any]) => {
+            v.areaPicPath = import.meta.env.VITE_BASE_API + v.areaPicPath
+        })
+        
+        mainPageData.areaList = result;
+    })
 }
 
 </script>
