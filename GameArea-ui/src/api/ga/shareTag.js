@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '../request'
 
 // 查询分享站标签管理列表
 export function listShareTag(query) {

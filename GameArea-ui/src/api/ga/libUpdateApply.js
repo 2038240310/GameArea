@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '../request'
 
 // 查询资料库操作申请单列表
 export function listLibUpdateApply(query) {

@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '../request'
 
 // 查询公告版类型管理列表
 export function listSignType(query) {

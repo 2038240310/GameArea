@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '../request'
 
 // 查询平台最高级分区列表
 export function listAreaArea(query) {

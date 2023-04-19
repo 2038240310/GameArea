@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '../request'
 
 // 查询分享站帖子回复列表
 export function listShareCardReply(query) {

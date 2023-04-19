@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '../request'
 
 // 查询头条公告信息（主页告示牌图片展示）列表
 export function listSignBoardTop(query) {

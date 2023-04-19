@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '../request'
 
 // 查询资源站帖子-标签关联列表
 export function listShareCardTag(query) {

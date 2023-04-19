@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '../request'
 
 // 查询公告版信息列表
 export function listSignBoard(query) {

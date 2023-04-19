@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '../request'
 
 // 查询论坛板块列表
 export function listBbsBlock(query) {

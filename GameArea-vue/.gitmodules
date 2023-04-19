@@ -1,3 +1,0 @@
-[submodule "src/libcommon"]
-	path = src/libcommon
-	url = https://github.com/message163/libcommon.git

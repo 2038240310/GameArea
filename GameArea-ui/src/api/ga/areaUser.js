@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '../request'
 
 // 查询平台用户列表
 export function listAreaUser(query) {

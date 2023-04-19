@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '../request'
 
 // 查询帖子用户权限配置列表
 export function listBbsUserPermissions(query) {

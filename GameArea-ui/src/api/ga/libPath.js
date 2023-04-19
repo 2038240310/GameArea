@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '../request'
 
 // 查询资料库资源路径列表
 export function listLibPath(query) {

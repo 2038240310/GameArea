@@ -1,100 +1,115 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Layout from '@/layout/index.vue'
-import Home from '@/view/home/index.vue'
-import Login from '@/view/login/index.vue'
-import content from '@/view/home/content/index.vue'
-import Partition from '@/view/home/Partition/index.vue'
-import Error from '@/view/error/error.vue'
-import posteditor from '@/view/home/posteditor/index.vue'
-import postDetail from '@/view/home/postDetail/index.vue'
-import game from '@/view/gamearea/home/index.vue'
-import gamedetail from '@/view/gamearea/detail/index.vue'
-import wiki from '@/view/gamearea/wiki/index.vue'
+import { createRouter, createWebHistory } from "vue-router";
+
+const routes = [
+  {
+    path: '/home',
+    redirect: '/main',
+  },
+  {
+    path: '/',
+    component: () => import("../views/Home.vue"),
+    redirect: '/main',
+    children: [
+      {
+        // 主页
+        path: '/main',
+        component: () => import('@/views/main.vue'),
+        name: 'main'
+      },
+      {
+        path: "/area",
+        component: () => import('@/views/area/index.vue'),
+        name: "area",
+        redirect: '/area/bbs',
+        children: [
+          {
+            // 分享站
+            path: '/area/share',
+            component: () => import('@/views/ga-share/index.vue'),
+            name: 'ga-share',
+          },
+          {
+            // 资料库
+            path: '/area/lib',
+            component: () => import('@/views/ga-lib/index.vue'),
+            name: 'ga-lib',
+          },
+          {
+            // 资讯消息站
+            path: '/area/sign',
+            component: () => import('@/views/ga-sign/index.vue'),
+            name: 'ga-sign',
+            children: []
+          },
+          {
+            // 论坛
+            path: '/area/bbs',
+            component: () => import('@/views/ga-bbs/index.vue'),
+            name: 'ga-bbs',
+          },
+
+          {
+            // 弃用，不做开发
+            path: '/sign/detail',
+            component: () => import('@/views/ga-sign/detail.vue'),
+            name: 'ga-sign-detail'
+          },
+          {
+            path: '/area/bbs/detail',
+            component: () => import('@/views/ga-bbs/BBSCardDetail.vue'),
+            name: 'bbs-detail'
+          },
+          {
+            // 分享站详细页
+            path: '/area/share/detail',
+            component: () => import('@/views/ga-share/detail.vue'),
+            name: 'ga-share-detail'
+          },
+          {
+            // 资料库详细页
+            path: '/area/lib/detail',
+            component: () => import('@/views/ga-lib/detail.vue'),
+            name: 'ga-lib-detail'
+          },
+        ]
+      },
+      {
+        path: '/setting',
+        children: [
+          {
+            path: '/setting/account',
+            component: () => import('@/views/system/account.vue'),
+            name: 'account'
+          },
+          {
+            path: '/setting/sys',
+            component: () => import('@/views/system/systemSetting.vue'),
+            name: 'sys'
+          }
+        ]
+      },
+      {
+        path: '/message',
+        children: [
+          {
+            path: '/message/notice',
+            component: () => import('@/views/message/notice.vue'),
+            name: 'notice',
+          }
+        ]
+      },
+      {
+        path: '/about',
+        component: () => import('@/components/about.vue'),
+        name: 'about'
+      }
+    ]
+  },
+];
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
+  history: createWebHistory(),
+  routes,
+});
 
-    {
-      path: '/home',
-      redirect: '/'
-    },
-    {
-      component: Layout,
-      path: '/',
-      children: [
-        {
-          path: '/home',
-          component: Home,
-          name: 'home',
-          children: [
-            {
-              // 论坛
-              path: '/bbs', 
-              component: content, 
-              name: 'content',
-            },
-            {
-              // 主页
-              path: '/main',
-              component: game,
-              name: 'game',
-            },
-            {
-              path: '/home/posteditor', 
-              component: posteditor, 
-              name: 'posteditor',
-              //守卫
-              beforeEnter: (to, from, next) => {
-                const token = localStorage.getItem("token")
-                if (token) {
-                  console.log("有token");
-                  next()
-                } else {
-                  next("/login")
-                }
-              }
-            },
-            {
-              path: '/home/postDetail', 
-              component: postDetail, 
-              name: 'postDetail',
-            }
-          ]
-        },
-        {
-          // 分享站
-          path: '/share',
-          component: gamedetail,
-          name: 'gamedetail',
-        },
-        {
-          // 资料库
-          path: '/lib',
-          component: wiki,
-          name: 'wiki',
-        },
-        {
-          // 资讯消息站
-          path: '/sign', 
-          component: Partition, 
-          name: 'Partition',
-        },
-        {
-          path: '/login', 
-          component: Login, 
-          name: 'login',
-          //children:[{}]   也可以继续添加children嵌套
-        },
-        {
-          path: '/error', 
-          component: Error, 
-          name: 'error',
-          //children:[{}]   也可以继续添加children嵌套
-        },
-      ]
-    }
-  ]
-})
-
-export default router
+export default router;

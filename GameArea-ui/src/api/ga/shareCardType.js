@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '../request'
 
 // 查询分享站帖子类型列表
 export function listShareCardType(query) {

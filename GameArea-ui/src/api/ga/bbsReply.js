@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '../request'
 
 // 查询论坛帖子回复信息列表
 export function listBbsReply(query) {

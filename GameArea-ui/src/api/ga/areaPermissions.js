@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '../request'
 
 // 查询平台模块权限分配列表
 export function listAreaPermissions(query) {
