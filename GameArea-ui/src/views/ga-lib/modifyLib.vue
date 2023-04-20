@@ -1,6 +1,8 @@
-<!-- 单个公告详细页 -->
+<!-- 资料修改页面 -->
 <template>
-    <h3>公告详细页</h3>
+    <div>
+
+    </div>
 </template>
 
 <script setup lang="ts">

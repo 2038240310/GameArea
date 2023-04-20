@@ -1,6 +1,8 @@
-<!-- 单个公告详细页 -->
+<!-- 发布分享 -->
 <template>
-    <h3>公告详细页</h3>
+    <div>
+        发布分享页
+    </div>
 </template>
 
 <script setup lang="ts">

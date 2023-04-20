@@ -1,6 +1,8 @@
-<!-- 单个公告详细页 -->
+<!-- 发表帖子 -->
 <template>
-    <h3>公告详细页</h3>
+    <div>
+        发表帖子
+    </div>
 </template>
 
 <script setup lang="ts">

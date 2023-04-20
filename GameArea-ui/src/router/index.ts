@@ -47,7 +47,6 @@ const routes = [
             component: () => import('@/views/ga-bbs/index.vue'),
             name: 'ga-bbs',
           },
-
           {
             // 弃用，不做开发
             path: '/sign/detail',
@@ -95,7 +94,12 @@ const routes = [
             path: '/message/notice',
             component: () => import('@/views/message/noticeDetail.vue'),
             name: 'notice',
-          }
+          },
+          {
+            path: '/message/more',
+            component: () => import('@/views/message/noticeMore.vue'),
+            name: 'notice-more',
+          },
         ]
       },
       {
@@ -118,7 +122,25 @@ const routes = [
             component: () => import('@/views/area/createArea.vue'),
             name: 'create-area'
           },
+          {
+            // 发表bbs帖子
+            path: '/create/bbs/sub',
+            component: () => import('@/views/ga-bbs/subCard.vue'),
+            name: 'bbs-card-sub'
+          },
+          {
+            // 发表分享资源
+            path: '/create/share/sub',
+            component: () => import('@/views/ga-share/subShare.vue'),
+            name: 'share-sub'
+          },
         ]
+      },
+      {
+        // 登录
+        path: '/login',
+        component: () => import('@/views/login/index.vue'),
+        name: 'login'
       },
       {
         path: '/about',

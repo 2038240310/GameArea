@@ -2,7 +2,8 @@
 <template>
     <div>
         <h3>分享站</h3>
-        <!-- 需要分类分标签筛选菜单 -->
+        <MDBBtn class="mb-1" color="primary" @click="toShareSub" style="margin-left: 80%;">分享</MDBBtn>
+        <!-- 分类分标签筛选菜单 -->
         <MDBCard class="mb-3">
             <MDBAccordion v-model="collapseId">
                 <MDBAccordionItem header-title="筛选菜单" collapse-id="collapseOne">
@@ -34,7 +35,7 @@
                     </MDBCardBody>
                 </MDBCard>
             </div>
-            </MDBCardGroup> -->
+                                </MDBCardGroup> -->
     </div>
 </template>
 
@@ -260,6 +261,15 @@ function toDetail(cardId: string) {
             query: {
                 cardId: cardId
             }
+        }
+    )
+}
+
+// 跳转至资源发表页面
+function toShareSub() {
+    router.push(
+        {
+            name: 'share-sub',
         }
     )
 }

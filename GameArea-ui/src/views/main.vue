@@ -43,7 +43,7 @@
                         </MDBCol>
                         <MDBCol col="2">
                             <!-- 跳入areaTotalPage -->
-                            <MDBBtn color="link" @click="toAreaMore">更多</MDBBtn>
+                            <MDBBtn color="link" @click="toAreaMore">更多>></MDBBtn>
                         </MDBCol>
                     </MDBRow>
                     <hr />
@@ -71,13 +71,21 @@
             </MDBRow>
 
             <!-- row3 -->
-            <MDBRow style="align-items: flex-start;">
+            <MDBRow class="mb-4" style="align-items: flex-start;">
                 <MDBCol col="3" style="height: 300px;">
                     <MDBCard>
-                        <MDBCardTitle>平台公告</MDBCardTitle>
+                        <MDBRow>
+                            <MDBCol col="8">
+                                <MDBCardTitle>平台公告</MDBCardTitle>
+                            </MDBCol>
+                            <MDBCol col="4">
+                                <MDBBtn color="link" @click="toNoticeMore">更多</MDBBtn>
+                            </MDBCol>
+                        </MDBRow>
+
                         <el-table :data="mainPageData.noticeList" height="300" stripe @current-change="toNoticeDetail">
                             <!-- <el-table-column prop="noticeId" label="id" type="index" /> -->
-                            <el-table-column width="130" prop="title" label="标题" />
+                            <el-table-column width="200" prop="title" label="标题" />
                             <el-table-column prop="createTime" label="发布日期" />
                         </el-table>
                     </MDBCard>
@@ -93,7 +101,7 @@
                                     <th scope="col"><b>来源</b></th>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="item in mainPageData.hotCardList">
+                                    <tr v-for="item in mainPageData.hotCardList" @click="toTopicCard(item.cardId)">
                                         <td>{{ item.title }}</td>
                                         <td>{{ item.createTime }}</td>
                                     </tr>
@@ -113,6 +121,11 @@ import { reactive, ref, onMounted } from 'vue';
 import router from '../router';
 // 服务器api
 import { listAreaArea } from '@/api/ga/areaArea.js'
+// 缓存
+import areaStore from '../store/area'
+
+
+const area = areaStore()
 
 // 轮播图demo
 const items5 = [
@@ -150,22 +163,22 @@ const mainPageData = reactive<any>({
 // 静态数据
 mainPageData.areaList = [
     {
-        areaId: 1,
+        id: 1,
         areaName: '饥荒',
         areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/dont%20starve.png'
     },
     {
-        areaId: 2,
+        id: 2,
         areaName: '原神',
         areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/OP.jpg'
     },
     {
-        areaId: 3,
+        id: 3,
         areaName: 'l4d2',
         areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/l4d2.jpg'
     },
     {
-        areaId: 4,
+        id: 4,
         areaName: 'war3',
         areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/war3.jpg'
     },
@@ -218,6 +231,8 @@ onMounted(() => {
 // 跳转至选择分区
 function toArea(areaId: string) {
     console.log('to area areaId:' + areaId);
+    
+    area.$patch({areaId:areaId})
 
     router.push({
         name: 'area',
@@ -238,6 +253,18 @@ function toAreaMore() {
 function toNoticeDetail(row: any) {
     console.log(row);
     // 跳转方法
+}
+
+// 跳转至全部公告页
+function toNoticeMore() {
+    router.push({
+        name: 'notice-more'
+    })
+}
+
+function toTopicCard(cardId:string) {
+    console.log('to cradId: '+cardId);
+    
 }
 
 // 获取分区信息

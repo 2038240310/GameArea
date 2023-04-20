@@ -2,6 +2,15 @@
 <template>
     <div>
         <h3 style="display: flex;">交流论坛</h3>
+        <MDBDropdown class="mb-1" v-model="dropdown1" style="margin-left: 60%;">
+            <MDBDropdownToggle @click="dropdown1 = !dropdown1">
+                操作
+            </MDBDropdownToggle>
+            <MDBDropdownMenu aria-labelledby="dropdownMenuButton">
+                <MDBDropdownItem to='/create/bbs/sub'>发帖子</MDBDropdownItem>
+                <MDBDropdownItem to="">我的帖子</MDBDropdownItem>
+            </MDBDropdownMenu>
+        </MDBDropdown>
         <!-- 帖子 -->
         <MDBCard style="width: 90%;">
             <MDBCardGroup v-for="item in bbsCardList.list" style="width: 98%;">
@@ -44,13 +53,15 @@
 </template>
 
 <script setup lang="ts">
-import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardImg, MDBCardGroup } from "mdb-vue-ui-kit";
-import { reactive } from "vue";
+import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardImg, MDBCardGroup, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdb-vue-ui-kit";
+import { onMounted, reactive, ref } from "vue";
 import router from "../../router";
 
 const bbsCardList = reactive<any>({
     list: []
 })
+
+const dropdown1 = ref(false)
 
 // 静态数据
 bbsCardList.list.push(
@@ -83,6 +94,11 @@ bbsCardList.list.push(
         createTime: '2023-04-16'
     },
 )
+
+// 页面加载
+onMounted(() => {
+
+})
 
 // 跳转至详细页
 function toDetailBbsCard(card: any) {

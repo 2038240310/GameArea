@@ -21,10 +21,16 @@
                 alt="" loading="lazy" />
             </MDBDropdownToggle>
             <MDBDropdownMenu>
-              <MDBDropdownItem to="/setting/account">我的账号</MDBDropdownItem>
+              <li v-if="user.token == null || user.token === ''">
+                <MDBDropdownItem to="/login">登录</MDBDropdownItem>
+              </li>
+              <li v-else>
+                <MDBDropdownItem to="/setting/account">我的账号</MDBDropdownItem>
+                <MDBDropdownItem to="/">
+                  <li @click="accountQuit">登出</li>
+                </MDBDropdownItem>
+              </li>
               <!-- <MDBDropdownItem to="/setting/sys">设置</MDBDropdownItem> -->
-              <hr />
-              <MDBDropdownItem to="accountQuit()">登出</MDBDropdownItem>
             </MDBDropdownMenu>
           </MDBDropdown>
         </MDBNavbarItem>
@@ -33,13 +39,13 @@
     </MDBNavbar>
 
     <!-- main -->
-    <div class="p-5 text-center bg-light">
-
-      <router-view />
+    <div class="p-5 text-center bg-dark">
+      当前登录账号token：{{ user.token }}
+      <router-view :key="$route.fullPath" />
     </div>
 
     <!-- foot -->
-    <MDBFooter :text="['center', 'lg-start']" bg="gray">
+    <MDBFooter class="mt-5" :text="['center', 'lg-start']" bg="gray">
       <!-- Grid container -->
       <MDBContainer class="p-4">
         <MDBRow style="margin-left: 10px;">
@@ -88,8 +94,7 @@ import {
   MDBDropdownToggle,
   MDBDropdownMenu,
   MDBDropdownItem,
-  MDBIcon,
-  MDBBadge,
+  MDBBtn,
   MDBRow,
   MDBCol,
   MDBNavbarBrand,
@@ -98,13 +103,33 @@ import {
 } from 'mdb-vue-ui-kit';
 
 import { ref } from 'vue';
+import userStore from '../store/user';
+import { ElMessage, ElMessageBox } from 'element-plus';
 
-function accountQuit() {
-  console.log('account quit');
-
-}
+const user = userStore()
 
 const dropdown6 = ref(false);
+
+// 退出账号，重置store来实现
+function accountQuit() {
+  console.log('account quit');
+  ElMessageBox.confirm(
+    '您确定退出账号吗?',
+    '警告',
+    {
+      confirmButtonText: 'OK',
+      cancelButtonText: 'Cancel',
+      type: 'warning',
+    }
+  )
+    .then(() => {
+      user.$reset()
+      ElMessage({
+        type: 'success',
+        message: '已退出账号',
+      })
+    })
+}
 
 </script>
 
