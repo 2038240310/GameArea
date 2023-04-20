@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.stereotype.Component;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -20,13 +21,22 @@ import java.util.concurrent.TimeUnit;
  * 验证码生成验证工具
  */
 @Slf4j
+@Component
 public class CaptchaUtils {
 
-    @Autowired
     private static Producer kaptchaProducer;
 
-    @Autowired
     private static RedisTemplate redisTemplate;
+
+    @Autowired
+    private void setKaptchaProducer(Producer kaptchaProducer){
+        CaptchaUtils.kaptchaProducer = kaptchaProducer;
+    }
+
+    @Autowired
+    private void setRedisTemplate(RedisTemplate redisTemplate){
+        CaptchaUtils.redisTemplate = redisTemplate;
+    }
 
     /**
      * 生成验证码与对应的uuid存入redis 默认验证码有效时间为2min

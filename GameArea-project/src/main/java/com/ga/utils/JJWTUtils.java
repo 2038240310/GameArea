@@ -17,7 +17,7 @@ public class JJWTUtils {
     public static final Long JWT_TTL = 3600000L;
 
     // JWT令牌信息
-    public static final String JWT_KEY = "RP!@#123";
+    public static final String JWT_KEY = "GA!@#123WWSGA!@#123WWSGA!@#123WWSGA!@#123WWSGA!@#123WWS";
 
     /**
      * 创建jwt token
@@ -89,7 +89,7 @@ public class JJWTUtils {
      */
     public static SecretKey generalKey() {
         byte[] encodedKey = Base64.getEncoder().encode(JWT_KEY.getBytes());
-        SecretKey key = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
+        SecretKey key = new SecretKeySpec(encodedKey, 0, encodedKey.length, "HmacSHA256");
         return key;
     }
 }

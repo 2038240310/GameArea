@@ -31,9 +31,9 @@
                         <MDBRow>
                             <MDBCol col="8">
                                 <MDBCardTitle>
-                                    远古织影者
+                                    <b>远古织影者</b>
                                 </MDBCardTitle>
-                                <MDBCardText style="font-size: 25px;width: 90%;display: inline-block;">
+                                <MDBCardText style="font-size: 18px;width: 90%;display: inline-block;">
                                     远古织影者（Ancient Fuelweaver）是饥荒：联机版的一类Boss级生物，他是一个来自远古文明的存在。
 
                                     远古织影者由玩家在中庭用远古钥匙激活远古大门，并在大门范围内复活奇异的骨架后生成，他会试图杀死玩家然后关闭远古大门。复活远古织影者会消耗玩家40San。

@@ -27,12 +27,11 @@ public class LoginController {
      * @param loginReq
      * @return
      */
-    @GetMapping("/check")
-    @ResponseBody
-    public AjaxResult login(LoginReq loginReq) {
+    @PostMapping("/check")
+    public AjaxResult login(@RequestBody LoginReq loginReq) {
         if (CaptchaUtils.verify(loginReq.getUuid(), loginReq.getCode())) {
             Map result = accountService.login(new AreaUser(loginReq.getUsername(), loginReq.getPassword()));
-            if (result.isEmpty()){
+            if (result == null || result.isEmpty()){
                 return AjaxResult.error("账号或者密码错误");
             }else {
                 return AjaxResult.success(result);
