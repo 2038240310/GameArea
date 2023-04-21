@@ -9,6 +9,15 @@ export function listBbsReply(query) {
   })
 }
 
+// 查询论坛帖子回复信息列表,携带二级回复
+export function listBbsReplyWithReply(query) {
+  return request({
+    url: '/ga/bbsReply/listWith',
+    method: 'get',
+    params: query
+  })
+}
+
 // 查询论坛帖子回复信息详细
 export function getBbsReply(replyId) {
   return request({

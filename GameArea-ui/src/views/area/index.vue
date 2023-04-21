@@ -1,6 +1,10 @@
 <!-- area -->
 <template>
     <div>
+        <span class="mb-2" style="display: flex;align-items: flex-end;">
+            <img :src="areaData.areaPicPath" style="width: 100px;height: 100px;margin-right: 10px;" />
+            <h2>{{ area.areaName }}</h2>
+        </span>
         <MDBNavbar expand="lg" light bg="light" container class="mb-3">
             <MDBNavbarToggler @click="collapse1 = !collapse1" target="#navbarSupportedContent"></MDBNavbarToggler>
             <MDBCollapse v-model="collapse1" id="navbarSupportedContent">
@@ -24,7 +28,7 @@
                 </form>
             </MDBCollapse>
         </MDBNavbar>
-        <h3>进入分区ID:{{ area.areaId }}</h3>
+        <!-- <h3>进入分区ID:{{ area.areaId }}</h3> -->
         <RouterView :key="$route.fullPath" />
     </div>
 </template>
@@ -38,14 +42,36 @@ import {
     MDBNavbarItem,
     MDBCollapse,
 } from 'mdb-vue-ui-kit';
-import { ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router'
 // 缓存
 import areaStore from '@/store/area'
+// api
+// import { getAreaArea } from '@/api/ga/areaArea'
 
 const area = areaStore()
 
 const router = useRoute()
+
+let areaData = reactive({
+    id: area.areaId,
+    areaName: area.areaName,
+    areaPicPath: area.areaPicPath
+})
+
+onMounted(() => {
+    // getArea()
+})
+
+// 获取分区信息
+// function getArea() {
+//     getAreaArea(area.areaId).then((res: any) => {
+//         let data = res.data
+//         data.areaPicPath = import.meta.env.VITE_BASE_API + data.areaPicPath
+//         areaData.areaName = data.areaName
+//         areaData.areaPicPath = data.areaPicPath
+//     })
+// }
 
 const collapse1 = ref(false);
 </script>

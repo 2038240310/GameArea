@@ -3,6 +3,7 @@ package com.ga.controller;
 import java.util.List;
 
 import com.ga.domain.msg.AjaxResult;
+import com.ga.domain.vo.BbsReplyVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +36,17 @@ public class BbsReplyController
     public AjaxResult list(BbsReply bbsReply)
     {
         List<BbsReply> list = bbsReplyService.selectBbsReplyList(bbsReply);
+        return AjaxResult.success(list);
+    }
+
+
+    /**
+     * 查询论坛帖子回复信息列表
+     */
+    @GetMapping("/listWith")
+    public AjaxResult listWithReply(BbsReply bbsReply)
+    {
+        List<BbsReplyVo> list = bbsReplyService.selectBbsReplyListWithRReply(bbsReply);
         return AjaxResult.success(list);
     }
 

@@ -5,6 +5,8 @@ export default defineStore('area', {
     state: () => {
         return {
             areaId: '',
+            areaName: '',
+            areaPicPath: '',
         }
     },
 

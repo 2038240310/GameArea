@@ -2,6 +2,7 @@ package com.ga.service;
 
 import java.util.List;
 import com.ga.domain.BbsReply;
+import com.ga.domain.vo.BbsReplyVo;
 
 /**
  * 论坛帖子回复信息Service接口
@@ -26,6 +27,13 @@ public interface IBbsReplyService
      * @return 论坛帖子回复信息集合
      */
     public List<BbsReply> selectBbsReplyList(BbsReply bbsReply);
+
+    /**
+     * 查询论坛帖子回复信息列表，包含二级回复
+     * @param bbsReply
+     * @return
+     */
+    public List<BbsReplyVo> selectBbsReplyListWithRReply(BbsReply bbsReply);
 
     /**
      * 新增论坛帖子回复信息

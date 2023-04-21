@@ -23,7 +23,7 @@
                         </MDBCol>
                         <MDBCol col="2">
                             <MDBCardText>
-                                <small>创建人：{{ item.createByName }}</small>
+                                <small>创建人id：{{ item.createBy }}</small>
                             </MDBCardText>
                         </MDBCol>
                         <MDBCol col="2">
@@ -32,7 +32,7 @@
                             </MDBCardText>
                         </MDBCol>
                     </MDBRow>
-                    <MDBRow>
+                    <!-- <MDBRow>
                         <MDBCol col="8" />
                         <MDBCol col="2">
                             <MDBCardText>
@@ -44,7 +44,7 @@
                                 <small>点赞数：</small>
                             </MDBCardText>
                         </MDBCol>
-                    </MDBRow>
+                    </MDBRow> -->
                 </MDBCard>
             </MDBCardGroup>
         </MDBCard>
@@ -56,48 +56,54 @@
 import { MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardImg, MDBCardGroup, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from "mdb-vue-ui-kit";
 import { onMounted, reactive, ref } from "vue";
 import router from "../../router";
+// api
+import { listBbsCard } from '@/api/ga/bbsCard'
+// 缓存
+import areaStore from '@/store/area'
 
 const bbsCardList = reactive<any>({
     list: []
 })
 
+const area = areaStore()
+
 const dropdown1 = ref(false)
 
 // 静态数据
-bbsCardList.list.push(
-    {
-        cardId: '1',
-        title: '欢迎来到论坛',
-        createBy: '1',
-        createByName: '管理人',
-        createTime: '2023-04-16'
-    },
-    {
-        cardId: '2',
-        title: '如何看待阿斯顿法国红酒',
-        createBy: '2',
-        createByName: 'toto',
-        createTime: '2023-04-16'
-    },
-    {
-        cardId: '3',
-        title: '大佬们，寻求帮助！',
-        createBy: '2',
-        createByName: 'toto',
-        createTime: '2023-04-16'
-    },
-    {
-        cardId: '4',
-        title: '这个号怎么样？',
-        createBy: '3',
-        createByName: '新人',
-        createTime: '2023-04-16'
-    },
-)
+// bbsCardList.list.push(
+//     {
+//         cardId: '1',
+//         title: '欢迎来到论坛',
+//         createBy: '1',
+//         createByName: '管理人',
+//         createTime: '2023-04-16'
+//     },
+//     {
+//         cardId: '2',
+//         title: '如何看待阿斯顿法国红酒',
+//         createBy: '2',
+//         createByName: 'toto',
+//         createTime: '2023-04-16'
+//     },
+//     {
+//         cardId: '3',
+//         title: '大佬们，寻求帮助！',
+//         createBy: '2',
+//         createByName: 'toto',
+//         createTime: '2023-04-16'
+//     },
+//     {
+//         cardId: '4',
+//         title: '这个号怎么样？',
+//         createBy: '3',
+//         createByName: '新人',
+//         createTime: '2023-04-16'
+//     },
+// )
 
 // 页面加载
 onMounted(() => {
-
+    getCardList()
 })
 
 // 跳转至详细页
@@ -108,6 +114,14 @@ function toDetailBbsCard(card: any) {
         query: card
     })
 }
+
+function getCardList() {
+    listBbsCard({areaId: area.areaId}).then((res:any) => {
+        let data = res.data
+        bbsCardList.list = data
+    })
+}
+
 </script>
 
 <style scoped></style>

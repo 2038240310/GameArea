@@ -55,6 +55,7 @@ public class BbsReplyReplyServiceImpl implements IBbsReplyReplyService
     public int insertBbsReplyReply(BbsReplyReply bbsReplyReply)
     {
         bbsReplyReply.setCreateTime(DateTimeUtils.now());
+        bbsReplyReply.setUpdateTime(bbsReplyReply.getCreateTime());
         return bbsReplyReplyMapper.insertBbsReplyReply(bbsReplyReply);
     }
 
