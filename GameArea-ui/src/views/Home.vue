@@ -40,7 +40,7 @@
 
     <!-- main -->
     <div class="p-5 text-center bg-dark">
-      当前登录账号token：{{ user.token }}
+      <!-- 当前登录账号token：{{ user.token }} -->
       <router-view :key="$route.fullPath" />
     </div>
 
