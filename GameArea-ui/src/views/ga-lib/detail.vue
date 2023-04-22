@@ -1,33 +1,14 @@
 <template>
     <div>
         <!-- 帖子主栏目 -->
-        <MDBCard class="mb-3">
-
-            <!-- <MDBRow class="g-0" style="display: flex; flex-wrap: nowrap;">
-                <MDBCol md="8" style="width: 80%; background-color: rgba(0, 255, 0, 0.3);">
-                    <MDBCardBody>
-                        <MDBCardTitle>该栏目标题</MDBCardTitle>
-                        <MDBCardText>
-                            <small class="text-muted">createTime</small>
-                        </MDBCardText>
-                    </MDBCardBody>
-                </MDBCol>
-                <MDBCol md="2" style="background-color: rgba(255, 0, 0, 0.3);">
-                    <MDBCardImg fluid src="" alt="...">头像</MDBCardImg>
-                    <div>发帖人信息</div>
-                </MDBCol>
-
-            </MDBRow> -->
-            <MDBRow>
+        <!-- <MDBCard class="mb-3">
+            <MDBRow> -->
                 <!-- 主要信息 -->
-                <MDBCol>
+                <!-- <MDBCol>
                     <MDBCard>
                         <MDBCardTitle>
                             {{ route.query.id }}
                         </MDBCardTitle>
-                        <!-- <MDBCardText>
-                            帖子内容-长文章
-                        </MDBCardText> -->
                         <MDBRow>
                             <MDBCol col="8">
                                 <MDBCardTitle>
@@ -101,13 +82,13 @@
                             </MDBCol>
                         </MDBRow>
                     </MDBCard>
-                    <MDBCard>
+                    <MDBCard> -->
                         <!-- 分享文件栏目功能交互 -->
-                        以上资料来自 <a href="https://dontstarve.huijiwiki.com/wiki/%E5%A4%8D%E6%B4%BB%E7%9A%84%E9%AA%A8%E6%9E%B6">灰机wiki-饥荒wiki</a>
+                        <!-- 以上资料来自 <a href="https://dontstarve.huijiwiki.com/wiki/%E5%A4%8D%E6%B4%BB%E7%9A%84%E9%AA%A8%E6%9E%B6">灰机wiki-饥荒wiki</a>
                     </MDBCard>
-                </MDBCol>
-            </MDBRow>
-        </MDBCard>
+                </MDBCol> -->
+            <!-- </MDBRow>
+        </MDBCard> -->
         <!-- 回复列表 -->
         <!-- <MDBCard style="width: 80%;">
             <div v-for="item in replyList.list">
@@ -136,16 +117,23 @@
             </MDBBtnGroup>
         </MDBCard> -->
 
+        <iframe seamless :src="libHtml" style="width: 100%;height: 900px; margin-top: -70px;">
+
+        </iframe>
 
     </div>
 </template>
 
 <script setup lang="ts">
 import { MDBAccordion, MDBAccordionItem, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardImg, MDBTextarea, MDBBtnGroup, MDBBtn } from "mdb-vue-ui-kit";
-import { reactive } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { useRoute } from 'vue-router'
+//api
+import { getLibPath } from '@/api/ga/libPath'
 
 const route = useRoute()
+
+let libHtml = ref<string>('')
 
 // 回复列表
 const replyList = reactive<any>({
@@ -163,6 +151,12 @@ replyList.list = [
         message: '欢迎',
     },
 ]
+
+onMounted(() => {
+    getLibPath(route.query.pathId).then((res:any) => {
+        libHtml.value = res.data.dataPath
+    })
+})
 
 </script>
 
