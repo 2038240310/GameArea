@@ -21,8 +21,8 @@
                 </MDBNavbarNav>
                 <!-- Search form -->
                 <form class="d-flex input-group w-auto">
-                    <input type="search" class="form-control" placeholder="输入字段" aria-label="Search" />
-                    <MDBBtn outline="primary">
+                    <input type="search" class="form-control" placeholder="输入字段" aria-label="Search" v-model="searchStr" />
+                    <MDBBtn outline="primary" @click="toSearch">
                         搜索
                     </MDBBtn>
                 </form>
@@ -43,7 +43,7 @@ import {
     MDBCollapse,
 } from 'mdb-vue-ui-kit';
 import { onMounted, reactive, ref } from 'vue';
-import { useRoute } from 'vue-router'
+import router from '../../router'
 // 缓存
 import areaStore from '@/store/area'
 // api
@@ -51,18 +51,21 @@ import areaStore from '@/store/area'
 
 const area = areaStore()
 
-const router = useRoute()
-
 let areaData = reactive({
     id: area.areaId,
     areaName: area.areaName,
     areaPicPath: area.areaPicPath
 })
 
+let searchStr = ref<string>('')
+
+const collapse1 = ref(false);
+
 onMounted(() => {
     // getArea()
 })
 
+// Q:效果不好
 // 获取分区信息
 // function getArea() {
 //     getAreaArea(area.areaId).then((res: any) => {
@@ -73,6 +76,14 @@ onMounted(() => {
 //     })
 // }
 
-const collapse1 = ref(false);
+function toSearch() {
+    router.push({
+        name: 'search',
+        query: {
+            data: searchStr.value
+        }
+    })
+}
+
 </script>
   

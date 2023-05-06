@@ -130,6 +130,7 @@ import { onMounted, reactive, ref } from "vue";
 import { useRoute } from 'vue-router'
 //api
 import { getLibPath } from '@/api/ga/libPath'
+import router from "../../router";
 
 const route = useRoute()
 
@@ -157,6 +158,12 @@ onMounted(() => {
         libHtml.value = res.data.dataPath
     })
 })
+
+// function handleReturnLib() {
+//     router.push({
+//         name: 'ga-lib',
+//     })
+// }
 
 </script>
 

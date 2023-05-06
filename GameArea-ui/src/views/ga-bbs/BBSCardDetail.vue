@@ -46,15 +46,16 @@
                                 <small>发表于：{{ item.createTime }}</small>
                             </MDBCardText>
                             <!-- 二级回复 -->
-                            <div v-if="item.replyReplyList.length > 0">
+                            <div v-if="item.replyReplyVoList.length > 0">
                                 <MDBAccordion>
-                                    <MDBAccordionItem :headerTitle="'回复(' + item.replyReplyList.length + ')'"
+                                    <MDBAccordionItem :headerTitle="'回复(' + item.replyReplyVoList.length + ')'"
                                         collapseId="collapseOne">
-                                        <MDBCard v-for="replyOf in item.replyReplyList" class="mb-2">
+                                        <MDBCard v-for="replyOf in item.replyReplyVoList" class="mb-2">
                                             <MDBRow>
                                                 <MDBCol col="2">
                                                     <MDBCard>
-                                                        <MDBCardText><b>{{ replyOf.createName }}</b></MDBCardText>
+                                                        <img :src="replyOf.userInfo.avatarPath"/>
+                                                        <MDBCardText><b>{{ replyOf.userInfo.nickname }}</b></MDBCardText>
                                                     </MDBCard>
                                                 </MDBCol>
                                                 <MDBCol col="10">
@@ -219,8 +220,14 @@ function getReplyList() {
     listBbsReplyWithReply({ cardId: route.query.cardId }).then((res: any) => {
         let data = res.data
 
-        Object.entries(data).forEach(([, v]: [any, any]) => {
+        Object.entries(data).forEach(([k, v]: [any, any]) => {
             v.userInfo.avatarPath = import.meta.env.VITE_BASE_API + v.userInfo.avatarPath
+            // 二级回复列表图片链接处理
+            if(v.replyReplyVoList.length > 0){
+                Object.entries(v.replyReplyVoList).forEach(([k1,v1]:[any,any]) => {
+                    v1.userInfo.avatarPath = import.meta.env.VITE_BASE_API + v1.userInfo.avatarPath
+                })
+            }
         })
 
         replyList.list = data
@@ -238,6 +245,7 @@ function handleReply() {
             message: "回复成功",
             type: "success"
         })
+        router.go(0)
     }).catch(() => {
         ElMessage({
             message: "回复失败",

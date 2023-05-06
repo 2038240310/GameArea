@@ -2,14 +2,13 @@ package com.ga.domain.vo;
 
 import com.ga.domain.AreaUserInfo;
 import com.ga.domain.BbsReply;
-import com.ga.domain.BbsReplyReply;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
 public class BbsReplyVo extends BbsReply {
-    private List<BbsReplyReply> replyReplyList;
+    private List<BbsReplyReplyVo> replyReplyVoList;
 
     private AreaUserInfo userInfo;
 

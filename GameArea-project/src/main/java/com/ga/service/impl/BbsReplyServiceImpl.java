@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ga.domain.BbsReplyReply;
+import com.ga.domain.vo.BbsReplyReplyVo;
 import com.ga.domain.vo.BbsReplyVo;
 import com.ga.mapper.AreaUserInfoMapper;
 import com.ga.mapper.BbsReplyReplyMapper;
@@ -64,9 +65,19 @@ public class BbsReplyServiceImpl implements IBbsReplyService
             BbsReplyVo brv = new BbsReplyVo(br);
             BbsReplyReply brr = new BbsReplyReply();
             brr.setReplyId(String.valueOf(br.getReplyId()));
-
-            brv.setReplyReplyList(bbsReplyReplyMapper.selectBbsReplyReplyList(brr));
             brv.setUserInfo(areaUserInfoMapper.selectAreaUserInfoById(Long.parseLong(br.getCreateBy())));
+
+            //  获取BbsReplyReplyVoList
+            List<BbsReplyReply> replyReplyList = bbsReplyReplyMapper.selectBbsReplyReplyList(brr);
+            List<BbsReplyReplyVo> replyReplyVoList = new ArrayList<>();
+            for (BbsReplyReply bbsReplyReply: replyReplyList){
+                BbsReplyReplyVo bbsReplyReplyVo = new BbsReplyReplyVo(bbsReplyReply);
+                bbsReplyReplyVo.setUserInfo(areaUserInfoMapper.selectAreaUserInfoById(Long.parseLong(bbsReplyReply.getCreateBy())));
+                replyReplyVoList.add(bbsReplyReplyVo);
+            }
+
+            // 设置BbsReplyVoList
+            brv.setReplyReplyVoList(replyReplyVoList);
             bbsReplyVoList.add(brv);
         }
         return bbsReplyVoList;

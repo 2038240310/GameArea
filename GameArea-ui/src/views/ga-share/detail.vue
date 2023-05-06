@@ -1,5 +1,6 @@
 <template>
     <div>
+        <MDBBtn color="link" @click="handleReturnShare" style="display: flex;">返回</MDBBtn>
         <!-- 帖子主栏目 -->
         <MDBCard class="mb-3" style="width: 80%;">
             <MDBRow class="g-0 mb-4 mt-4" style="display: flex; flex-wrap: nowrap;">
@@ -12,7 +13,8 @@
 
                 </MDBCol>
                 <MDBCol md="2" style="">
-                    <MDBCardImg class="rounded-circle" fluid :src="contextData.authorUser.avatarPath" alt="..." style="width: 50px;" />
+                    <MDBCardImg class="rounded-circle" fluid :src="contextData.authorUser.avatarPath" alt="..."
+                        style="width: 50px;" />
                     <div>{{ contextData.authorUser.userName }}</div>
                 </MDBCol>
             </MDBRow>
@@ -31,7 +33,9 @@
                     <hr />
                     <MDBCard class="mb-2" style="height: 70px;">
                         <!-- 分享文件栏目功能交互 -->
-                        <MDBBtn color="primary" style="width: 150px;">内容下载</MDBBtn>
+                        <a href="https://pan.baidu.com/s/1CkznC8Ngztu65ZfVZP3uxA?pwd=ymht#list/path=%2F"
+                            target="_blank" style="width: 150px;">内容下载</a>
+
                     </MDBCard>
                     <!-- 预览内容图片 -->
                     <MDBCard v-if="contextData.cardInfo.picPathList.length > 0">
@@ -49,7 +53,7 @@
         <h3 style="display: flex;">评论({{ replyList.list.length }})</h3>
         <MDBCard style="width: 95%;">
             <!-- 发送回复 -->
-            
+
             <div>
                 <MDBTextarea label="回复" type="text" />
             </div>
@@ -66,9 +70,9 @@
                             <MDBCardText>{{ item.userId }}</MDBCardText>
                         </MDBCol>
                         <MDBCol md="8" style="width: 80%;display: flex;">
-                                <MDBCardText>
-                                    {{ item.message }}
-                                </MDBCardText>
+                            <MDBCardText>
+                                {{ item.message }}
+                            </MDBCardText>
                         </MDBCol>
                     </MDBRow>
                 </MDBCard>
@@ -83,6 +87,7 @@
 import { MDBAccordion, MDBAccordionItem, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardImg, MDBTextarea, MDBBtnGroup, MDBBtn } from "mdb-vue-ui-kit";
 import { reactive } from "vue";
 import { useRoute } from 'vue-router'
+import router from "../../router";
 
 const route = useRoute()
 
@@ -142,6 +147,13 @@ contextData = {
             },
         ]
     }
+}
+
+// 返回键处理
+function handleReturnShare() {
+    router.push({
+        name: 'ga-share',
+    })
 }
 
 </script>

@@ -1,3 +1,4 @@
+import { path } from 'path';
 import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
@@ -70,7 +71,13 @@ const routes = [
             component: () => import('@/views/ga-lib/detail.vue'),
             name: 'ga-lib-detail'
           },
+
         ]
+      },
+      {
+        path: '/search/',
+        component: () => import('@/views/area/searchPage.vue'),
+        name: 'search',
       },
       {
         path: '/setting',
