@@ -17,4 +17,14 @@ export default defineStore('area', {
     actions: {
 
     },
+    // 数据缓存
+    persist: {
+        enabled: true,
+        strategies: [
+            {
+                key: 'area',
+                storage: sessionStorage,
+            }
+        ]
+    }
 })

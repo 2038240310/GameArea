@@ -19,4 +19,14 @@ export default defineStore('user', {
     actions: {
 
     },
+    // 数据缓存
+    persist: {
+        enabled: true,
+        strategies: [
+            {
+                key: 'user',
+                storage: localStorage,
+            }
+        ]
+    }
 })
