@@ -1,7 +1,12 @@
 package com.ga.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.ga.domain.BbsReplyReply;
+import com.ga.domain.vo.BbsReplyVo;
+import com.ga.mapper.AreaUserInfoMapper;
+import com.ga.mapper.BbsReplyReplyMapper;
 import com.ga.utils.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +25,12 @@ public class BbsReplyServiceImpl implements IBbsReplyService
 {
     @Autowired
     private BbsReplyMapper bbsReplyMapper;
+
+    @Autowired
+    private BbsReplyReplyMapper bbsReplyReplyMapper;
+
+    @Autowired
+    private AreaUserInfoMapper areaUserInfoMapper;
 
     /**
      * 查询论坛帖子回复信息
@@ -45,6 +56,22 @@ public class BbsReplyServiceImpl implements IBbsReplyService
         return bbsReplyMapper.selectBbsReplyList(bbsReply);
     }
 
+    @Override
+    public List<BbsReplyVo> selectBbsReplyListWithRReply(BbsReply bbsReply) {
+        List<BbsReply> bbsReplyList = bbsReplyMapper.selectBbsReplyList(bbsReply);
+        List<BbsReplyVo> bbsReplyVoList = new ArrayList<>();
+        for (BbsReply br: bbsReplyList) {
+            BbsReplyVo brv = new BbsReplyVo(br);
+            BbsReplyReply brr = new BbsReplyReply();
+            brr.setReplyId(String.valueOf(br.getReplyId()));
+
+            brv.setReplyReplyList(bbsReplyReplyMapper.selectBbsReplyReplyList(brr));
+            brv.setUserInfo(areaUserInfoMapper.selectAreaUserInfoById(Long.parseLong(br.getCreateBy())));
+            bbsReplyVoList.add(brv);
+        }
+        return bbsReplyVoList;
+    }
+
     /**
      * 新增论坛帖子回复信息
      * 
@@ -55,6 +82,7 @@ public class BbsReplyServiceImpl implements IBbsReplyService
     public int insertBbsReply(BbsReply bbsReply)
     {
         bbsReply.setCreateTime(DateTimeUtils.now());
+        bbsReply.setUpdateTime(bbsReply.getCreateTime());
         return bbsReplyMapper.insertBbsReply(bbsReply);
     }
 

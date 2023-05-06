@@ -39,7 +39,7 @@
     </MDBNavbar>
 
     <!-- main -->
-    <div class="p-5 text-center bg-dark">
+    <div class="p-5 text-center bg-light">
       <!-- 当前登录账号token：{{ user.token }} -->
       <router-view :key="$route.fullPath" />
     </div>

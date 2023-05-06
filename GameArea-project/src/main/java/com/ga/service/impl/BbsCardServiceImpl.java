@@ -55,6 +55,7 @@ public class BbsCardServiceImpl implements IBbsCardService
     public int insertBbsCard(BbsCard bbsCard)
     {
         bbsCard.setCreateTime(DateTimeUtils.now());
+        bbsCard.setUpdateTime(bbsCard.getCreateTime());
         return bbsCardMapper.insertBbsCard(bbsCard);
     }
 

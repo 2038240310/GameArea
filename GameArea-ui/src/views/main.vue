@@ -121,6 +121,7 @@ import { reactive, ref, onMounted } from 'vue';
 import router from '../router';
 // 服务器api
 import { listAreaArea } from '@/api/ga/areaArea.js'
+import { getAreaArea } from '@/api/ga/areaArea'
 // 缓存
 import areaStore from '../store/area'
 
@@ -161,28 +162,28 @@ const mainPageData = reactive<any>({
 })
 
 // 静态数据
-mainPageData.areaList = [
-    {
-        id: 1,
-        areaName: '饥荒',
-        areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/dont%20starve.png'
-    },
-    {
-        id: 2,
-        areaName: '原神',
-        areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/OP.jpg'
-    },
-    {
-        id: 3,
-        areaName: 'l4d2',
-        areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/l4d2.jpg'
-    },
-    {
-        id: 4,
-        areaName: 'war3',
-        areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/war3.jpg'
-    },
-]
+// mainPageData.areaList = [
+//     {
+//         id: 1,
+//         areaName: '饥荒',
+//         areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/dont%20starve.png'
+//     },
+//     {
+//         id: 2,
+//         areaName: '原神',
+//         areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/OP.jpg'
+//     },
+//     {
+//         id: 3,
+//         areaName: 'l4d2',
+//         areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/l4d2.jpg'
+//     },
+//     {
+//         id: 4,
+//         areaName: 'war3',
+//         areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/war3.jpg'
+//     },
+// ]
 mainPageData.hotCardList = [
     {
         cardId: '1001',
@@ -231,13 +232,28 @@ onMounted(() => {
 // 跳转至选择分区
 function toArea(areaId: string) {
     console.log('to area areaId:' + areaId);
+
+    let areaData:any
+
+    Object.entries(mainPageData.areaList).forEach(([k,v]:[any,any]) => {
+        if (v.id === areaId) {
+            areaData = v
+        }
+    })
     
-    area.$patch({areaId:areaId})
+    console.log(areaData.areaName);
+
+    area.$patch((state) => {
+        state.areaId = areaId
+        state.areaName = areaData.areaName
+        state.areaPicPath = areaData.areaPicPath
+    })
 
     router.push({
         name: 'area',
         query: {
-            areaId: areaId
+            areaId: areaId,
+            areaName: areaData.areaName,
         }
     })
 }
@@ -262,16 +278,16 @@ function toNoticeMore() {
     })
 }
 
-function toTopicCard(cardId:string) {
-    console.log('to cradId: '+cardId);
-    
+function toTopicCard(cardId: string) {
+    console.log('to cradId: ' + cardId);
+
 }
 
 // 获取分区信息
 function getAreaAreaList() {
     listAreaArea().then((res: any) => {
         // console.log(res.data);
-        let result = res.data.data
+        let result = res.data
         // console.log(result);
 
         Object.entries(result).forEach(([k, v]: [any, any]) => {
