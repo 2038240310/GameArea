@@ -1,46 +1,52 @@
 <!-- ga-share -->
 <template>
     <div>
-        <h3>分享站</h3>
-        <MDBBtn class="mb-1" color="primary" @click="toShareSub" style="margin-left: 80%;">分享</MDBBtn>
+        <h3 class="h3">分享站</h3>
         <!-- 分类分标签筛选菜单 -->
-        <MDBCard class="mb-3">
-            <MDBAccordion v-model="collapseId">
+        <div class="flex mb-4">
+            <MDBAccordion v-model="collapseId" class="w-11/12">
                 <MDBAccordionItem header-title="筛选菜单" collapse-id="collapseOne">
                     <div style="display: flex;">
-                        <MDBBtn color="primary">最新</MDBBtn>
-                        <MDBBtn color="primary">最热门</MDBBtn>
+                        <button class="btn" v-if="sortBtn.datetimeOrder"
+                            @click="sortBtn.datetimeOrder = !sortBtn.datetimeOrder">发表时间<i class='fas fa-angle-double-down'></i></button>
+                        <button class="btn" v-else @click="sortBtn.datetimeOrder = !sortBtn.datetimeOrder">发表时间<i class='fas fa-angle-double-up'></i></button>
+                        <button class="btn" v-if="sortBtn.commentOrder"
+                            @click="sortBtn.commentOrder = !sortBtn.commentOrder">评论数<i class='fas fa-angle-double-down'></i></button>
+                        <button class="btn" v-else @click="sortBtn.commentOrder = !sortBtn.commentOrder">评论数<i class='fas fa-angle-double-up'></i></button>
+                        <button class="btn" v-if="sortBtn.downloadOrder"
+                            @click="sortBtn.downloadOrder = !sortBtn.downloadOrder">下载量<i class='fas fa-angle-double-down'></i></button>
+                        <button class="btn" v-else @click="sortBtn.downloadOrder = !sortBtn.downloadOrder">下载量<i class='fas fa-angle-double-up'></i></button>
                     </div>
                 </MDBAccordionItem>
             </MDBAccordion>
-        </MDBCard>
+            <button class="btn" @click="toShareSub">分享</button>
+        </div>
+
         <!-- 项目数据列表 -->
-        <MDBCardGroup>
-            <div v-for="item in shareCardList.list">
-                <MDBCard class="m-1" style="width: 200px;height: 200px;" @click="toDetail(item.cardId)">
-                    <MDBCardImg :src="item.picPath" top alt="..." style="object-fit: cover;height: 75%;" />
-                    <MDBCardTitle>{{ item.title }}</MDBCardTitle>
-                </MDBCard>
+        <div class="swap my-1 mr-2" v-for="item in 20" @click="toDetail(item.boardId)">
+            <div class="card w-60 h-60 bg-base-100 shadow-xl">
+                <figure>
+                    <img src="https://th.bing.com/th/id/R.171e8fe1aa1544a1868ab710eed82d82?rik=FLPxvVVL9C9bnQ&riu=http%3a%2f%2fwww.pp3.cn%2fuploads%2fallimg%2f200710%2f14-200G00Z321.jpg&ehk=Lb0IHCCZIdqYQOi28m%2borU8c1ARGbTEC%2f8WYzfwRuHo%3d&risl=&pid=ImgRaw&r=0"
+                        alt="Shoes" />
+                </figure>
+                <div class="card-body h-2/6 p-2">
+                    <h2 class="card-title mb-0">
+                        title
+                    </h2>
+                    <div class="card-actions justify-end">
+                        <i class='far fa-comment-dots mx-2'></i>
+                    </div>
+                    <div class="card-actions justify-end">
+                        <div class="badge badge-outline">tag</div>
+                    </div>
+                </div>
             </div>
-        </MDBCardGroup>
-    <!-- <MDBCardGroup>
-            <div v-for="item in shareCardList.list" style="">
-                <MDBCard class="m-1" style="width: 250px;height: 280px;" @click="toDetail(item.boardId)">
-                    <MDBCardImg :src="item.picPath" top alt="..." style="object-fit: contain;" />
-                    <MDBCardBody>
-                        <MDBCardTitle>{{ item.title }}</MDBCardTitle>
-                        <MDBCardText>
-                            <small class="text-muted">{{ item.boardId }}</small>
-                        </MDBCardText>
-                    </MDBCardBody>
-                </MDBCard>
-            </div>
-                                </MDBCardGroup> -->
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { MDBRow, MDBCol, MDBCardGroup, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardImg, MDBAccordion, MDBAccordionItem, MDBBtn, MDBBtnGroup } from "mdb-vue-ui-kit";
+import { MDBAccordion, MDBAccordionItem } from "mdb-vue-ui-kit";
 import { reactive, ref } from "vue";
 import router from "../../router";
 
@@ -49,6 +55,12 @@ const shareCardList = reactive<any>({
 })
 
 const collapseId = ref('')
+
+let sortBtn = reactive({
+    datetimeOrder: true,
+    commentOrder: true,
+    downloadOrder: true,
+})
 
 // 静态数据
 shareCardList.list.push(

@@ -1,16 +1,6 @@
 <template>
     <div>
         <MDBContainer>
-            <!-- row search -->
-            <MDBRow style="display: flex;flex-direction: column;align-items: flex-end;">
-                <MDBCol col="4">
-                    <MDBInput v-model="search3" inputGroup :formOutline="false" wrapperClass="mb-3" placeholder="Search"
-                        aria-label="Search" aria-describedby="button-addon2">
-                        <MDBBtn outline="primary">搜索</MDBBtn>
-                    </MDBInput>
-                </MDBCol>
-            </MDBRow>
-
             <!-- row1 -->
             <MDBRow style="margin-bottom: 1rem;">
                 <MDBCol col="9">
@@ -120,8 +110,7 @@ import { MDBCarousel, MDBInput, MDBBtn, MDBIcon, MDBRow, MDBCol, MDBContainer, M
 import { reactive, ref, onMounted } from 'vue';
 import router from '../router';
 // 服务器api
-import { listAreaArea } from '@/api/ga/areaArea.js'
-import { getAreaArea } from '@/api/ga/areaArea'
+import { listAreaArea, getAreaArea } from '@/api/ga/areaArea'
 // 缓存
 import areaStore from '../store/area'
 
@@ -150,9 +139,7 @@ const items5 = [
     }
 ];
 
-const carousel5 = ref(0);
-
-const search3 = ref('');
+let carousel5 = ref(0);
 
 const mainPageData = reactive<any>({
     boardList: [],
@@ -162,28 +149,28 @@ const mainPageData = reactive<any>({
 })
 
 // 静态数据
-// mainPageData.areaList = [
-//     {
-//         id: 1,
-//         areaName: '饥荒',
-//         areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/dont%20starve.png'
-//     },
-//     {
-//         id: 2,
-//         areaName: '原神',
-//         areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/OP.jpg'
-//     },
-//     {
-//         id: 3,
-//         areaName: 'l4d2',
-//         areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/l4d2.jpg'
-//     },
-//     {
-//         id: 4,
-//         areaName: 'war3',
-//         areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/war3.jpg'
-//     },
-// ]
+mainPageData.areaList = [
+    {
+        id: 1,
+        areaName: '饥荒',
+        areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/dont%20starve.png'
+    },
+    {
+        id: 2,
+        areaName: '原神',
+        areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/OP.jpg'
+    },
+    {
+        id: 3,
+        areaName: 'l4d2',
+        areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/l4d2.jpg'
+    },
+    {
+        id: 4,
+        areaName: 'war3',
+        areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/war3.jpg'
+    },
+]
 mainPageData.hotCardList = [
     {
         cardId: '1001',
@@ -233,15 +220,13 @@ onMounted(() => {
 function toArea(areaId: string) {
     console.log('to area areaId:' + areaId);
 
-    let areaData:any
+    let areaData: any
 
-    Object.entries(mainPageData.areaList).forEach(([k,v]:[any,any]) => {
+    Object.entries(mainPageData.areaList).forEach(([k, v]: [any, any]) => {
         if (v.id === areaId) {
             areaData = v
         }
     })
-    
-    console.log(areaData.areaName);
 
     area.$patch((state) => {
         state.areaId = areaId

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <MDBBtn color="link" @click="handleReturnBBS" style="display: flex;">返回</MDBBtn>
+        <button class="btn" @click="handleReturnBBS" style="display: flex;">返回</button>
         <!-- 帖子主栏目 -->
         <MDBCard class="mb-3">
             <MDBRow>
@@ -135,64 +135,30 @@ const inputReplyData = reactive({
 })
 
 // 静态信息
-// replyList.list = [
-//     {
-//         userId: '1',
-//         replyId: '1',
-//         message: '你好',
-//         createBy: '1',
-//         createName: 'wws',
-//         avatarPath: 'http://127.0.0.1:8080/img/user/avatar_icon/user1.jpg',
-//         createTime: '2023-04-16 18:00',
-//         replyOfList: [
-//             {
-//                 rrId: '1',
-//                 createBy: '2',
-//                 createName: 'toto',
-//                 avatarPath: 'http://127.0.0.1:8080/img/user/avatar_icon/toto.jpg',
-//                 message: '幸会幸会',
-//                 createTime: '2023-04-16 20:12'
-//             }
-//         ]
-//     },
-//     {
-//         userId: '2',
-//         replyId: '2',
-//         message: '欢迎',
-//         createBy: '3',
-//         createName: 'nnnn',
-//         avatarPath: 'http://127.0.0.1:8080/img/user/avatar_icon/default.png',
-//         createTime: '2023-04-16 18:32',
-//         replyOfList: []
-//     },
-//     {
-//         userId: '1',
-//         replyId: '3',
-//         message: '这是测试数据',
-//         createBy: '1',
-//         createName: 'wws',
-//         avatarPath: 'http://127.0.0.1:8080/img/user/avatar_icon/user1.jpg',
-//         createTime: '2023-04-16 18:00',
-//         replyOfList: [
-//             {
-//                 rrId: '2',
-//                 createBy: '2',
-//                 createName: 'toto',
-//                 avatarPath: 'http:127.0.0.1:8080/img/user/avatar_icon/toto.jpg',
-//                 message: '？',
-//                 createTime: '2023-04-16 20:12'
-//             },
-//             {
-//                 rrId: '3',
-//                 createBy: '1',
-//                 createName: 'wws',
-//                 avatarPath: 'http:127.0.0.1:8080/img/user/avatar_icon/user1.jpg',
-//                 message: '二次回复，日期不做修正',
-//                 createTime: '2023-04-16 20:12'
-//             },
-//         ]
-//     },
-// ]
+replyList.list = [
+    {
+        userId: '1',
+        replyId: '1',
+        message: '你好',
+        createBy: '1',
+        avatarPath: 'http://127.0.0.1:8080/img/user/avatar_icon/user1.jpg',
+        createTime: '2023-04-16 18:00',
+        userInfo: {
+            avatarPath: '...',
+
+        },
+        replyReplyVoList: [
+            {
+                rrId: '1',
+                createBy: '2',
+                createName: 'toto',
+                avatarPath: 'http://127.0.0.1:8080/img/user/avatar_icon/toto.jpg',
+                message: '幸会幸会',
+                createTime: '2023-04-16 20:12'
+            }
+        ]
+    },
+]
 userList.list = [
     {
         userId: '1',

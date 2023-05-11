@@ -1,6 +1,52 @@
 <template>
-  <header>
+  <div>
     <!-- Navbar -->
+    <div class="navbar">
+      <div class="flex-none">
+        <button class="btn btn-square btn-ghost">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            class="inline-block w-5 h-5 stroke-current">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="navbar-start flex-1">
+        <a class="btn btn-ghost normal-case text-xl" href="/main">GameArea</a>
+      </div>
+
+      <div class="navbar-end">
+        <div>
+          <button class="btn btn-ghost btn-circle">
+            <div class="indicator">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+              <span class="badge badge-xs badge-primary indicator-item"></span>
+            </div>
+          </button>
+        </div>
+        <div class="dropdown dropdown-end">
+          <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+            <div class="w-10 rounded-full">
+              <img src="" alt="..." />
+            </div>
+          </label>
+          <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+            <div v-if="user.token === '' || user.token == null">
+              <li><a href="/login">登录</a></li>
+            </div>
+            <div v-else>
+              <li><a href="">我的账号</a></li>
+              <li><a @click="accountQuit">注销</a></li>
+            </div>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+    <!--
     <MDBNavbar expand="lg" light bg="white" container>
       <MDBNavbarToggler target="#navbarNav"></MDBNavbarToggler>
       <MDBNavbarNav collapse="navbarNav" class="mb-2 mb-lg-0">
@@ -9,15 +55,15 @@
         <MDBNavbarItem to="/about">about</MDBNavbarItem>
       </MDBNavbarNav>
 
-      <ul class="navbar-nav" collapse="navbarNav">
-        <!-- <MDBNavbarItem to="/message/notice" style="margin-right: 0;">
+      <ul class="navbar-nav" collapse="navbarNav"> -->
+    <!-- <MDBNavbarItem to="/message/notice" style="margin-right: 0;">
           <MDBIcon icon="bell"></MDBIcon>
           <MDBBadge pill notification badge="danger">1</MDBBadge>
         </MDBNavbarItem> -->
-        <MDBNavbarItem>
+    <!-- <MDBNavbarItem>
           <MDBDropdown class="nav-item" v-model="dropdown6">
             <MDBDropdownToggle tag="a" class="nav-link" @click="dropdown6 = !dropdown6">
-              <img src="https://mdbootstrap.com/img/Photos/Avatars/img (31).webp" class="rounded-circle" height="22"
+              <img src="" class="rounded-circle" height="22"
                 alt="" loading="lazy" />
             </MDBDropdownToggle>
             <MDBDropdownMenu>
@@ -29,14 +75,14 @@
                 <MDBDropdownItem to="/">
                   <li @click="accountQuit">登出</li>
                 </MDBDropdownItem>
-              </li>
-              <!-- <MDBDropdownItem to="/setting/sys">设置</MDBDropdownItem> -->
-            </MDBDropdownMenu>
+              </li> -->
+    <!-- <MDBDropdownItem to="/setting/sys">设置</MDBDropdownItem> -->
+    <!-- </MDBDropdownMenu>
           </MDBDropdown>
         </MDBNavbarItem>
       </ul>
 
-    </MDBNavbar>
+    </MDBNavbar> -->
 
     <!-- main -->
     <div class="p-5 text-center bg-light">
@@ -81,23 +127,13 @@
         </a>
       </div>
     </MDBFooter>
-  </header>
+  </div>
 </template>
 
 <script setup lang="ts">
 import {
-  MDBNavbar,
-  MDBNavbarToggler,
-  MDBNavbarNav,
-  MDBNavbarItem,
-  MDBDropdown,
-  MDBDropdownToggle,
-  MDBDropdownMenu,
-  MDBDropdownItem,
-  MDBBtn,
   MDBRow,
   MDBCol,
-  MDBNavbarBrand,
   MDBContainer,
   MDBFooter
 } from 'mdb-vue-ui-kit';

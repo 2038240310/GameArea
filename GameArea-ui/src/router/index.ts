@@ -21,8 +21,14 @@ const routes = [
         path: "/area",
         component: () => import('@/views/area/index.vue'),
         name: "area",
-        redirect: '/area/bbs',
+        redirect: '/area/index',
         children: [
+          {
+            // 分区主页
+            path: '/area/index',
+            component: () => import('@/views/ga-main/index.vue'),
+            name: 'ga-main',
+          },
           {
             // 分享站
             path: '/area/share',
