@@ -29,12 +29,12 @@
                 <hr>
                 <div>
                     <span class="btn">
-                        <i class='fas fa-star' v-if="isCollect" @click="isCollect=false">已收藏</i>
-                        <i class='far fa-star' v-else @click="isCollect=true">收藏</i>
+                        <i class='fas fa-star' v-if="isCollect" @click="isCollect = false">已收藏</i>
+                        <i class='far fa-star' v-else @click="isCollect = true">收藏</i>
                     </span>
                     <span class="btn">
-                        <i class='fas fa-hand-middle-finger' v-if="isLike" @click="isLike=false">已点赞</i>
-                        <i class='far fa-thumbs-up' v-else @click="isLike=true">点赞</i>   
+                        <i class='fas fa-hand-middle-finger' v-if="isLike" @click="isLike = false">已点赞</i>
+                        <i class='far fa-thumbs-up' v-else @click="isLike = true">点赞</i>
                     </span>
                     <span class="btn">
                         <i class="fas fa-lightbulb">反馈</i>
@@ -81,15 +81,17 @@
             <div class="card w-full my-1" v-for="item in replyList.list" style="background-color: chartreuse;">
                 <div class="flex flex-row">
                     <div>
-                        <img class="inline w-10 h-10 rounded-full mx-2 mt-2" src="@/assets/img/R.jpg" alt="" />
-                        user
+                        <div>
+                            <img class="inline w-10 h-10 rounded-full mx-2 mt-2" src="@/assets/img/R.jpg" alt="" />
+                            <span>user</span>
+                        </div>
                         <div>
                             <small>
                                 userInfo
                             </small>
                         </div>
                     </div>
-                    <div class="m-4">
+                    <div class="m-4" style="max-width: 80%;">
                         {{ item.message }}
                     </div>
                 </div>
@@ -124,7 +126,7 @@ let isLike = ref(false)
 replyList.list = [
     {
         userId: '1',
-        message: '你好',
+        message: '你好长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试',
         createTime: '2023-5-11 17:00',
     },
     {

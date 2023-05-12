@@ -13,24 +13,50 @@
                     创建于: {{ route.query.createTime }}
                 </MDBCol>
             </MDBRow>
-            <!-- <MDBRow class="g-0" style="display: flex; flex-wrap: nowrap;">
-                <MDBCol md="2">
-                    <MDBCardImg fluid src="" alt="..." />
-                </MDBCol>
-                <MDBCol md="8" style="width: 80%;">
-                    <MDBCardBody class="card-text-start">
-                        <MDBCardText>
-                            你好，我是这儿的主子
-                        </MDBCardText>
-                        <MDBCardText>
-                            <small class="text-muted"></small>
-                        </MDBCardText>
-                    </MDBCardBody>
-                </MDBCol>
-            </MDBRow> -->
+
         </MDBCard>
+
         <!-- 回复列表 -->
-        <MDBCardGroup v-for="item in replyList.list" style="width: 80%;">
+        <div class="card w-11/12 my-4 ml-4" v-for="item in replyList.list" style="background-color: rgb(107, 248, 241);">
+            <div class="p-3">
+                <div class="flex flex-row">
+                    <div class="w-40" style="background-color: coral;">
+                        <div>
+                            <img class="inline w-10 h-10 rounded-full mx-2 mt-2" src="@/assets/img/R.jpg" alt="" />
+                            <span>{{ item.userInfo.nickname }}</span>
+                        </div>
+                        <div>
+                            <small>
+                                {{ item.userInfo.message }}
+                            </small>
+                        </div>
+                    </div>
+                    <div class="m-4 flex w-9/12">
+                        {{ item.message }}
+                    </div>
+                </div>
+                <div class="flex justify-center mx-2">
+                    <button class="btn-link" @click="handleOpenReplyInput">回复({{ item.replyVoList.length }})</button>
+                    <span class="mx-1"><small><i class='far fa-clock'></i>{{ item.createTime }}</small></span>
+                </div>
+            </div>
+            <!-- 二级 -->
+            <div class="card mb-1 mx-auto w-11/12" v-for="item2 in item.replyVoList"
+                style="background-color: rgb(214, 117, 238);">
+                <div class="h-12 p-2 flex flex-row">
+                    <span class="mx-2 flex justify-start">
+                        <img class="inline w-8 h-8 mr-2 rounded-full" src="@/assets/img/R.jpg" alt="">
+                        {{ item2.userInfo.nickname }} :
+                    </span>
+                    <span class="mx-4">
+                        {{ item2.message }}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 回复列表 -->
+        <!-- <MDBCardGroup v-for="item in replyList.list" style="width: 80%;">
             <MDBCard border="message" class="mb-3">
                 <MDBRow class="g-0" style="display: flex; flex-wrap: nowrap;">
                     <MDBCol md="2">
@@ -44,9 +70,9 @@
                             </MDBCardText>
                             <MDBCardText class="row-reverse">
                                 <small>发表于：{{ item.createTime }}</small>
-                            </MDBCardText>
-                            <!-- 二级回复 -->
-                            <div v-if="item.replyReplyVoList.length > 0">
+                            </MDBCardText> -->
+        <!-- 二级回复 -->
+        <!-- <div v-if="item.replyReplyVoList.length > 0">
                                 <MDBAccordion>
                                     <MDBAccordionItem :headerTitle="'回复(' + item.replyReplyVoList.length + ')'"
                                         collapseId="collapseOne">
@@ -54,7 +80,7 @@
                                             <MDBRow>
                                                 <MDBCol col="2">
                                                     <MDBCard>
-                                                        <img :src="replyOf.userInfo.avatarPath"/>
+                                                        <img :src="replyOf.userInfo.avatarPath" />
                                                         <MDBCardText><b>{{ replyOf.userInfo.nickname }}</b></MDBCardText>
                                                     </MDBCard>
                                                 </MDBCol>
@@ -86,7 +112,7 @@
                     </MDBCol>
                 </MDBRow>
             </MDBCard>
-        </MDBCardGroup>
+        </MDBCardGroup> -->
         <hr />
         <!-- 分页栏 -->
 
@@ -137,28 +163,120 @@ const inputReplyData = reactive({
 // 静态信息
 replyList.list = [
     {
-        userId: '1',
         replyId: '1',
         message: '你好',
+        cardId: '1',
         createBy: '1',
-        avatarPath: 'http://127.0.0.1:8080/img/user/avatar_icon/user1.jpg',
-        createTime: '2023-04-16 18:00',
+        createTime: '2023.1.1 12:00',
+        updateTime: '2023.1.1 12:00',
+        status: 0,
         userInfo: {
+            id: '1',
+            userId: '1',
+            level: '999',
+            message: 'wws',
             avatarPath: '...',
-
+            nickname: 'dev_wws',
         },
-        replyReplyVoList: [
+        replyVoList: [
             {
                 rrId: '1',
+                message: '回复，您好',
+                cardId: '1',
+                replyId: '1',
+                replyTo: null,
                 createBy: '2',
-                createName: 'toto',
-                avatarPath: 'http://127.0.0.1:8080/img/user/avatar_icon/toto.jpg',
-                message: '幸会幸会',
-                createTime: '2023-04-16 20:12'
+                createTime: '2023.1.1 12:01',
+                updateTime: '2023.1.1 12:01',
+                status: 0,
+                userInfo: {
+                    id: '2',
+                    userId: '2',
+                    level: '999',
+                    message: 'wws',
+                    avatarPath: '...',
+                    nickname: 'dev_wws',
+                },
+            },
+            {
+                rrId: '2',
+                message: '回复，您好',
+                cardId: '1',
+                replyId: '1',
+                replyTo: null,
+                createBy: '2',
+                createTime: '2023.1.1 12:01',
+                updateTime: '2023.1.1 12:01',
+                status: 0,
+                userInfo: {
+                    id: '2',
+                    userId: '2',
+                    level: '999',
+                    message: 'wws',
+                    avatarPath: '...',
+                    nickname: 'dev_wws',
+                },
             }
         ]
     },
+    {
+        replyId: '1',
+        message: '第二楼',
+        cardId: '1',
+        createBy: '1',
+        createTime: '2023.1.1 12:00',
+        updateTime: '2023.1.1 12:00',
+        status: 0,
+        userInfo: {
+            id: '1',
+            userId: '1',
+            level: '999',
+            message: 'wws',
+            avatarPath: '...',
+            nickname: 'dev_wws',
+        },
+        replyVoList: [
+            {
+                rrId: '3',
+                message: '回复，您好',
+                cardId: '1',
+                replyId: '1',
+                replyTo: null,
+                createBy: '2',
+                createTime: '2023.1.1 12:01',
+                updateTime: '2023.1.1 12:01',
+                status: 0,
+                userInfo: {
+                    id: '2',
+                    userId: '2',
+                    level: '999',
+                    message: 'wws',
+                    avatarPath: '...',
+                    nickname: 'dev_wws',
+                },
+            },
+        ]
+    },
+    {
+        replyId: '1',
+        message: '第三楼，长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试',
+        cardId: '1',
+        createBy: '1',
+        createTime: '2023.1.1 12:00',
+        updateTime: '2023.1.1 12:00',
+        status: 0,
+        userInfo: {
+            id: '1',
+            userId: '1',
+            level: '999',
+            message: 'wws',
+            avatarPath: '...',
+            nickname: 'dev_wws',
+        },
+        replyVoList: [],
+    },
 ]
+
 userList.list = [
     {
         userId: '1',
@@ -189,8 +307,8 @@ function getReplyList() {
         Object.entries(data).forEach(([k, v]: [any, any]) => {
             v.userInfo.avatarPath = import.meta.env.VITE_BASE_API + v.userInfo.avatarPath
             // 二级回复列表图片链接处理
-            if(v.replyReplyVoList.length > 0){
-                Object.entries(v.replyReplyVoList).forEach(([k1,v1]:[any,any]) => {
+            if (v.replyReplyVoList.length > 0) {
+                Object.entries(v.replyReplyVoList).forEach(([k1, v1]: [any, any]) => {
                     v1.userInfo.avatarPath = import.meta.env.VITE_BASE_API + v1.userInfo.avatarPath
                 })
             }
@@ -228,13 +346,13 @@ function handleReturnBBS() {
 // 二级回复
 function handleSecReply(replyId: string) {
     // console.log("reply to replyId:" + replyId);
-    if(user.userId==='' || user.userId == null){
+    if (user.userId === '' || user.userId == null) {
         ElMessage({
             type: 'info',
             message: '请先登录',
         })
         // 跳转至登录页面
-        router.push({name: 'login'})
+        router.push({ name: 'login' })
         return
     }
 
@@ -254,7 +372,7 @@ function handleSecReply(replyId: string) {
 
 // 发送二级回复
 function sendSecReply(rReply: any) {
-    addBbsReplyReply(rReply).then(()=>{
+    addBbsReplyReply(rReply).then(() => {
         router.go(0)
         ElMessage({
             type: 'success',
@@ -262,6 +380,11 @@ function sendSecReply(rReply: any) {
         })
     })
     return
+}
+
+// 打开二级回复输入面板
+function handleOpenReplyInput() {
+    
 }
 
 </script>

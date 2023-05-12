@@ -62,7 +62,7 @@ const routes = [
           },
           {
             path: '/area/bbs/detail',
-            component: () => import('@/views/ga-bbs/BBSCardDetail.vue'),
+            component: () => import('@/views/ga-bbs/detail.vue'),
             name: 'bbs-detail'
           },
           {
