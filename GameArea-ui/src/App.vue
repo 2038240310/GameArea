@@ -8,3 +8,12 @@
   font-family: Roboto, Helvetica, Arial, sans-serif;
 }
 </style>
+<style>
+.bg-img {
+  background: url('assets/img/bg-1.jpg');
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-size: 100% 100%;
+}
+</style>

@@ -1,21 +1,12 @@
 <!-- ga-bbs -->
 <template>
     <div>
-        <h3 class="h3">交流论坛</h3>
-        <!-- <MDBDropdown class="mb-1" v-model="dropdown1" style="margin-left: 60%;">
-            <MDBDropdownToggle @click="dropdown1 = !dropdown1">
-                操作
-            </MDBDropdownToggle>
-            <MDBDropdownMenu aria-labelledby="dropdownMenuButton">
-                <MDBDropdownItem to='/create/bbs/sub'>发帖子</MDBDropdownItem>
-                <MDBDropdownItem to="">我的帖子</MDBDropdownItem>
-            </MDBDropdownMenu>
-        </MDBDropdown> -->
+        <h3 class="h3 flex p-2 ml-4">交流论坛</h3>
         <div>
             <!-- 帖子 -->
             <div v-for="item in bbsCardList.list">
                 <div class="card mb-2 mx-5 w-10/12">
-                    <div class="card-title ml-5" @click="toDetailBbsCard(item)">{{ item.title }}</div>
+                    <div class="card-title ml-5 mt-2 p-2" @click="toDetailBbsCard(item)">{{ item.title }}</div>
                     <div class="card-body flex-row justify-between">
                         <span class="">{{ item.title }}</span>
                         <span class="">

@@ -30,6 +30,18 @@ const routes = [
             name: 'ga-main',
           },
           {
+            // 分区公告
+            path: '/area/notice',
+            component: () => import('@/views/ga-main/notice.vue'),
+            name: 'ga-notice',
+          },
+          {
+            // 分区规则(说明书)
+            path: '/area/ruler',
+            component: () => import('@/views/ga-main/ruler.vue'),
+            name: 'ga-ruler'
+          },
+          {
             // 分享站
             path: '/area/share',
             component: () => import('@/views/ga-share/index.vue'),

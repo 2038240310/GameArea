@@ -1,26 +1,33 @@
 <template>
     <div>
-        <button class="btn" @click="handleReturnBBS" style="display: flex;">返回</button>
+        <button class="btn m-2" @click="handleReturnBBS" style="display: flex;">返回</button>
         <!-- 帖子主栏目 -->
-        <MDBCard class="mb-3">
-            <MDBRow>
-                <MDBCol col="10">
-                    <MDBCardTitle class="card-text-start ms-3">
-                        <h2>{{ route.query.title }}</h2>
-                    </MDBCardTitle>
-                </MDBCol>
-                <MDBCol col="2">
-                    创建于: {{ route.query.createTime }}
-                </MDBCol>
-            </MDBRow>
-
-        </MDBCard>
+        <div class="card mx-auto p-2 w-11/12">
+            <div class="h3 flex ml-3">
+                {{ route.query.title }}
+            </div>
+            <div class="card-body">
+                <!-- 帖子内容 -->
+            </div>
+            <div class="flex flex-row justify-end">
+                <span class="btn-ghost mx-2">
+                    <i class='fas fa-star' v-if="isCollect" @click="isCollect = false">已收藏</i>
+                    <i class='far fa-star' v-else @click="isCollect = true">收藏</i>
+                </span>
+                <span class="btn-ghost mx-2">
+                    <i class="fas fa-exclamation-triangle">举报</i>
+                </span>
+                <span class="">
+                    <i class='far fa-clock'></i>: {{ route.query.createTime }}
+                </span>
+            </div>
+        </div>
 
         <!-- 回复列表 -->
-        <div class="card w-11/12 my-4 ml-4" v-for="item in replyList.list" style="background-color: rgb(107, 248, 241);">
+        <div class="card w-11/12 my-4 mx-auto" v-for="item in replyList.list">
             <div class="p-3">
                 <div class="flex flex-row">
-                    <div class="w-40" style="background-color: coral;">
+                    <div class="w-40">
                         <div>
                             <img class="inline w-10 h-10 rounded-full mx-2 mt-2" src="@/assets/img/R.jpg" alt="" />
                             <span>{{ item.userInfo.nickname }}</span>
@@ -35,14 +42,18 @@
                         {{ item.message }}
                     </div>
                 </div>
-                <div class="flex justify-center mx-2">
-                    <button class="btn-link" @click="handleOpenReplyInput">回复({{ item.replyVoList.length }})</button>
+                <div class="flex justify-end mx-2">
+                    <button class="btn-ghost mx-1" @click="handleOpenReplyInput">回复({{ item.replyVoList.length }})</button>
+                    <button class="btn-ghost mx-1"><i class="fas fa-exclamation-triangle">举报</i></button>
                     <span class="mx-1"><small><i class='far fa-clock'></i>{{ item.createTime }}</small></span>
+                </div>
+                <div v-show="isReplyInput">
+                    <textarea class="w-8/12 p-2 rounded-xl" name="" :id="item.replyId" rows="3" placeholder="回复"></textarea>
+                    <button class="btn mb-3">发送</button>
                 </div>
             </div>
             <!-- 二级 -->
-            <div class="card mb-1 mx-auto w-11/12" v-for="item2 in item.replyVoList"
-                style="background-color: rgb(214, 117, 238);">
+            <div class="card mb-1 mx-auto w-9/12" v-for="item2 in item.replyVoList">
                 <div class="h-12 p-2 flex flex-row">
                     <span class="mx-2 flex justify-start">
                         <img class="inline w-8 h-8 mr-2 rounded-full" src="@/assets/img/R.jpg" alt="">
@@ -55,80 +66,21 @@
             </div>
         </div>
 
-        <!-- 回复列表 -->
-        <!-- <MDBCardGroup v-for="item in replyList.list" style="width: 80%;">
-            <MDBCard border="message" class="mb-3">
-                <MDBRow class="g-0" style="display: flex; flex-wrap: nowrap;">
-                    <MDBCol md="2">
-                        <MDBCardImg fluid :src="item.userInfo.avatarPath" circle alt="..." style="width: 150px;" />
-                        <MDBCardText><b>{{ item.userInfo.nickname }}</b></MDBCardText>
-                    </MDBCol>
-                    <MDBCol md="8" style="width: 80%; ">
-                        <MDBCardBody>
-                            <MDBCardText style="display: flex;">
-                                {{ item.message }}
-                            </MDBCardText>
-                            <MDBCardText class="row-reverse">
-                                <small>发表于：{{ item.createTime }}</small>
-                            </MDBCardText> -->
-        <!-- 二级回复 -->
-        <!-- <div v-if="item.replyReplyVoList.length > 0">
-                                <MDBAccordion>
-                                    <MDBAccordionItem :headerTitle="'回复(' + item.replyReplyVoList.length + ')'"
-                                        collapseId="collapseOne">
-                                        <MDBCard v-for="replyOf in item.replyReplyVoList" class="mb-2">
-                                            <MDBRow>
-                                                <MDBCol col="2">
-                                                    <MDBCard>
-                                                        <img :src="replyOf.userInfo.avatarPath" />
-                                                        <MDBCardText><b>{{ replyOf.userInfo.nickname }}</b></MDBCardText>
-                                                    </MDBCard>
-                                                </MDBCol>
-                                                <MDBCol col="10">
-                                                    <MDBCard>
-                                                        <MDBCardText style="display: flex;">
-                                                            {{ replyOf.message }}
-                                                        </MDBCardText>
-                                                        <MDBCardText class="row-reverse">
-                                                            <small>发表于：{{ replyOf.createTime }}</small>
-                                                        </MDBCardText>
-                                                    </MDBCard>
-                                                </MDBCol>
-                                            </MDBRow>
-
-                                        </MDBCard>
-                                        <div>
-                                            <el-button type="select" @click="handleSecReply(item.replyId)">
-                                                回复
-                                            </el-button>
-                                        </div>
-                                    </MDBAccordionItem>
-                                </MDBAccordion>
-                            </div>
-                            <el-button type="select" @click="handleSecReply(item.replyId)" v-else>
-                                回复
-                            </el-button>
-                        </MDBCardBody>
-                    </MDBCol>
-                </MDBRow>
-            </MDBCard>
-        </MDBCardGroup> -->
         <hr />
-        <!-- 分页栏 -->
 
         <!-- 发送回复 -->
         <div>
-            <MDBTextarea label="回复" type="text" v-model="inputReplyData.message" />
-            <MDBBtnGroup>
-                <MDBBtn color="primary" @click="handleReply">发送</MDBBtn>
-            </MDBBtnGroup>
+            <textarea class="w-11/12 p-2 rounded-xl" cols="" rows="3" placeholder="回复"
+                v-model="inputReplyData.message"></textarea>
+            <br>
+            <button class="btn">发送</button>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import { MDBAccordion, MDBAccordionItem, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardImg, MDBTextarea, MDBBtnGroup, MDBBtn, MDBCardGroup } from "mdb-vue-ui-kit";
-import { onMounted, reactive } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { useRoute } from 'vue-router'
 // api
 import { addBbsReply, listBbsReplyWithReply } from '@/api/ga/bbsReply'
@@ -141,6 +93,10 @@ import router from "../../router";
 const route = useRoute()
 
 const user = userStore()
+
+let isCollect = ref(false)
+
+let isReplyInput = ref(false)
 
 // 回复列表
 const replyList = reactive<any>({
@@ -220,7 +176,7 @@ replyList.list = [
         ]
     },
     {
-        replyId: '1',
+        replyId: '2',
         message: '第二楼',
         cardId: '1',
         createBy: '1',
@@ -258,7 +214,7 @@ replyList.list = [
         ]
     },
     {
-        replyId: '1',
+        replyId: '3',
         message: '第三楼，长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试长文本测试',
         cardId: '1',
         createBy: '1',
@@ -384,7 +340,7 @@ function sendSecReply(rReply: any) {
 
 // 打开二级回复输入面板
 function handleOpenReplyInput() {
-    
+    isReplyInput.value = !isReplyInput.value
 }
 
 </script>

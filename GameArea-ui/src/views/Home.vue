@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-base-100">
     <!-- Navbar -->
     <div class="navbar">
       <div class="flex-none">
@@ -39,59 +39,28 @@
             </div>
             <div v-else>
               <li><a href="">我的账号</a></li>
+              <li><a href="">关注分区</a></li>
+              <li><a href="">我的收藏</a></li>
+              <li><a href="">权限管理</a></li>
               <li><a @click="accountQuit">注销</a></li>
             </div>
           </ul>
         </div>
       </div>
-
     </div>
-    <!--
-    <MDBNavbar expand="lg" light bg="white" container>
-      <MDBNavbarToggler target="#navbarNav"></MDBNavbarToggler>
-      <MDBNavbarNav collapse="navbarNav" class="mb-2 mb-lg-0">
-        <MDBNavbarBrand>GameArea</MDBNavbarBrand>
-        <MDBNavbarItem to="/home" active>Home</MDBNavbarItem>
-        <MDBNavbarItem to="/about">about</MDBNavbarItem>
-      </MDBNavbarNav>
-
-      <ul class="navbar-nav" collapse="navbarNav"> -->
-    <!-- <MDBNavbarItem to="/message/notice" style="margin-right: 0;">
-          <MDBIcon icon="bell"></MDBIcon>
-          <MDBBadge pill notification badge="danger">1</MDBBadge>
-        </MDBNavbarItem> -->
-    <!-- <MDBNavbarItem>
-          <MDBDropdown class="nav-item" v-model="dropdown6">
-            <MDBDropdownToggle tag="a" class="nav-link" @click="dropdown6 = !dropdown6">
-              <img src="" class="rounded-circle" height="22"
-                alt="" loading="lazy" />
-            </MDBDropdownToggle>
-            <MDBDropdownMenu>
-              <li v-if="user.token == null || user.token === ''">
-                <MDBDropdownItem to="/login">登录</MDBDropdownItem>
-              </li>
-              <li v-else>
-                <MDBDropdownItem to="/setting/account">我的账号</MDBDropdownItem>
-                <MDBDropdownItem to="/">
-                  <li @click="accountQuit">登出</li>
-                </MDBDropdownItem>
-              </li> -->
-    <!-- <MDBDropdownItem to="/setting/sys">设置</MDBDropdownItem> -->
-    <!-- </MDBDropdownMenu>
-          </MDBDropdown>
-        </MDBNavbarItem>
-      </ul>
-
-    </MDBNavbar> -->
 
     <!-- main -->
-    <div class="p-5 text-center bg-light">
-      <!-- 当前登录账号token：{{ user.token }} -->
-      <router-view :key="$route.fullPath" />
+    <div class="w-full mx-auto text-center shadow rounded-box">
+      <!-- <div class="bg-img"></div> -->
+      <div class="w-11/12 mx-auto p-2">
+        <router-view :key="$route.fullPath" />
+      </div>
     </div>
 
+
+
     <!-- foot -->
-    <MDBFooter class="mt-5" :text="['center', 'lg-start']" bg="gray">
+    <MDBFooter class="mt-5 bg-base-100" :text="['center', 'lg-start']" bg="gray">
       <!-- Grid container -->
       <MDBContainer class="p-4">
         <MDBRow style="margin-left: 10px;">
@@ -107,7 +76,6 @@
           <MDBCol lg="3" md="6" class="mb-4 mb-md-0">
             <h5 class="text-uppercase">联系方式</h5>
             <ul class="list-unstyled mb-0">
-              <hr />
               <MDBRow>
                 <MDBCol col="3">qq</MDBCol>
                 <MDBCol col="6">1026723244</MDBCol>
