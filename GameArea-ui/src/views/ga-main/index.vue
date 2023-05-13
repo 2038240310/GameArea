@@ -1,6 +1,6 @@
 <!-- 分区主页 -->
 <template>
-    <div>
+    <div class="p-2">
         <div class="h1 flex ml-3 p-3 mb-2">首页</div>
         <div class="flex w-full mb-3">
             <div class="card w-9/12 bg-base-100 shadow-xl h-80 mr-1 ml-2">
@@ -13,7 +13,14 @@
             <div class="card w-3/12 bg-base-100 shadow-xl mr-2 ml-1">
                 <label class="w-full card-title ml-4 p-1">标题</label>
                 <div class="card-body w-full">
-                    副栏目内容
+                    <b>欢迎来到该分区，猜你想找：</b>
+                    <ul>
+                        <li class="btn-link"><a href="">游戏新手攻略</a></li>
+                        <li class="btn-link"><a href="">萌新快速入门</a></li>
+                        <li class="btn-link"><a href="">最新版本更新说明</a></li>
+                        <li class="btn-link"><a href="">进阶技巧</a></li>
+                        <li class="btn-link"><a href="">冷门知识</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -22,7 +29,13 @@
             <div class="card w-9/12 bg-base-100 shadow-xl mr-1 ml-2">
                 <label class="card-title ml-4 p-1">社区动态</label>
                 <div class="card-body">
-                    最新论坛帖子、热门论坛帖子、高人气资源(最多展示5个)
+                    <div v-if="true">
+                        社区内好冷清，快来发几个帖子吧！
+                        <button class="btn">点击发帖</button>
+                    </div>
+                    <div v-else>
+
+                    </div>
                 </div>
             </div>
             <div class="w-3/12 shadow-xl mr-2 ml-1">
@@ -75,6 +88,7 @@
 </template>
 
 <script setup lang="ts">
+import { tr } from 'element-plus/es/locale';
 import { reactive } from 'vue';
 
 

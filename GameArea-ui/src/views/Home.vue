@@ -50,9 +50,9 @@
     </div>
 
     <!-- main -->
-    <div class="w-full mx-auto text-center shadow rounded-box">
+    <div class="w-full mx-auto text-center shadow bg-use-2">
       <!-- <div class="bg-img"></div> -->
-      <div class="w-11/12 mx-auto p-2">
+      <div class="w-9/12 mx-auto p-2">
         <router-view :key="$route.fullPath" />
       </div>
     </div>

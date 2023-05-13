@@ -16,4 +16,14 @@
   position: fixed;
   background-size: 100% 100%;
 }
+
+.bg-my-1 {
+  background-color: rgba(0, 102, 255, 0.534);
+}
+.bg-my-2 {
+  background-color: rgba(0, 0, 0, 0.493);
+}
+.bg-my-3 {
+  background-color: rgba(255, 241, 49, 0.842);
+}
 </style>

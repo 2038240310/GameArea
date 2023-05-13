@@ -20,7 +20,7 @@
 
             <div class="tabs ml-5">
                 <div class="dropdown">
-                    <label tabindex="0" class="tab tab-xs tab-lifted">分区菜单</label>
+                    <label tabindex="0" class="tab tab-lg tab-lifted">分区菜单</label>
                     <ul tabindex="0" class="dropdown-content meun p-2 shadow bg-base-100 rounded-box w-20">
                         <li><a href="/area/index">主页</a></li>
                         <li><a href="/area/ruler">分区规则</a></li>
@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="dropdown">
-                    <a tabindex="1" class="tab tab-xs tab-lifted">社区</a>
+                    <a tabindex="1" class="tab tab-lg tab-lifted">社区</a>
                     <ul tabindex="1" class="dropdown-content meun p-2 shadow bg-base-100 rounded-box w-20">
                         <li><a href="/area/bbs">交流论坛</a></li>
                         <li><a href="/area/share">资源分享</a></li>
