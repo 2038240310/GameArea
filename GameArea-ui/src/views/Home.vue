@@ -42,7 +42,7 @@
               <li><a href="">关注分区</a></li>
               <li><a href="">我的收藏</a></li>
               <li><a href="">权限管理</a></li>
-              <li><a @click="accountQuit">注销</a></li>
+              <li><a @click="accountQuit">账号退出</a></li>
             </div>
           </ul>
         </div>

@@ -8,30 +8,30 @@
         <div class="mb-3">
             <div class="mb-1">
                 标题
-                <input type="text" placeholder="title" class="input w-full" />
+                <input type="text" placeholder="title" class="input input-primary w-full" />
             </div>
 
             <div class="mb-1">
                 分享内容
-                <input type="textarea" placeholder="message" class="input w-full" />
+                <input type="textarea" placeholder="message" class="input input-primary w-full" />
             </div>
 
             <div>
                 图片内容上传(第一张默认为封面)
-                <input type="file" class="file-input w-full" />
+                <input type="file" class="file-input w-full input-primary" />
             </div>
         </div>
 
         <hr>
 
         <div v-for="item in loadNum" class="my-3">
-            <div class="mb-1">
+            <div class="my-2">
                 输入外部云盘链接
-                <input type="text" placeholder="source link" class="input w-full" />
+                <input type="text" placeholder="source link" class="input input-primary w-full" />
             </div>
             输入链接加密密码(没有就不填)
-            <div class="mb-1">
-                <input type="text" placeholder="link password" class="input w-full" />
+            <div class="my-2">
+                <input type="text" placeholder="link password" class="input input-primary w-full" />
             </div>
             <hr>
         </div>

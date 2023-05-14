@@ -6,13 +6,13 @@
             <div>
                 <span class="flex justify-between">
                     <span class="card-title ml-8">
-                        title
+                        {{ contextData.cardInfo.title }}
                         <!-- 修改选项 -->
                         <span v-if="1">
                             <i class='fas fa-edit'></i>
                         </span>
                     </span>
-                    <span class="w-3/12" style="background-color: #16afa8;">
+                    <span class="w-3/12" style="background-color: #d1ff7cc7;">
                         <div>
                             <img class="inline w-10 h-10 rounded-full mx-2 mt-2" src="@/assets/img/R.jpg" alt="" />
                             <span>user</span>
@@ -21,10 +21,11 @@
                     </span>
                 </span>
             </div>
+            <hr>
             <div class="card-body">
+                <img class="w-1/2 mx-auto m-2" src="@/assets/img/cat/cat1.jpg" alt="">
                 <div>
-                    文字描述text文字描述text文字描述text文字描述text文字描述text文字描述text文字描述text文字描述text文字描述text
-
+                    {{ contextData.cardInfo.text }}
                 </div>
                 <hr>
                 <div>
@@ -46,10 +47,10 @@
                 <hr>
                 <div>
                     <span>
-                        <div class="p-2 mx-1 w-4/12" style="background-color: aqua;">
+                        <div class="p-2 mx-1 w-4/12 rounded-box" style="background-color:  #d1ff7cc7;">
                             <div class="h5">title</div>
-                            <div class="mb-2"><input type="text" disabled></div>
-                            <div class="mb-2"><input type="text" disabled></div>
+                            <div class="mb-2"><input type="text" disabled placeholder="pan://123123"></div>
+                            <div class="mb-2"><input type="text" disabled placeholder="password123"></div>
                             <div class="btn">download<i class='fas fa-download'></i></div>
                         </div>
                     </span>
@@ -57,8 +58,8 @@
                 <hr>
                 <div>
                     图片展示
-                    <div class="w-1/2 ml-10 mb-2" v-for="item in 3">
-                        <img src="@/assets/img/R.jpg" alt="">
+                    <div class="w-1/2 ml-10 mb-2" v-for="item in contextData.cardInfo.picPathList">
+                        <img :src="item.picPath" alt="...">
                     </div>
                 </div>
             </div>
@@ -117,7 +118,7 @@ const replyList = reactive<any>({
     list: []
 })
 
-let contextData = reactive<any>({})
+let contextData = reactive<any>()
 
 let isCollect = ref(false)
 let isLike = ref(false)
@@ -144,32 +145,23 @@ contextData = {
     cardInfo: {
         title: '这是一个测试标题',
         picPath: 'http://127.0.0.1:8080/img/share/test_card/top.jpg',
-        text: ' 勉强还能看看的资源吧，如果大家喜欢，那么会考虑继续发。',
+        text: ' 今天在这里分享猫咪的图片，希望大家能明白猫咪是好的，猫咪很好',
         createTime: '',
         updateTime: '',
         sourceLink: '',
         sourceInfo: '',
         picPathList: [
             {
-                picPath: 'http://127.0.0.1:8080/img/share/test_card/pre1.jpg'
+                picPath: '@/assets/img/cat/cat1.jpg',
             },
             {
-                picPath: 'http://127.0.0.1:8080/img/share/test_card/pre2.jpg'
+                picPath: '@/assets/img/cat/cat2.jpg',
             },
             {
-                picPath: 'http://127.0.0.1:8080/img/share/test_card/pre3.jpg'
+                picPath: '@/assets/img/cat/cat3.jpg',
             },
             {
-                picPath: 'http://127.0.0.1:8080/img/share/test_card/pre4.jpg'
-            },
-            {
-                picPath: 'http://127.0.0.1:8080/img/share/test_card/pre5.jpg'
-            },
-            {
-                picPath: 'http://127.0.0.1:8080/img/share/test_card/pre6.jpg'
-            },
-            {
-                picPath: 'http://127.0.0.1:8080/img/share/test_card/pre7.jpg'
+                picPath: '@/assets/img/cat/cat4.jpg',
             },
         ]
     }

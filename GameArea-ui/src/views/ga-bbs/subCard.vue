@@ -1,6 +1,7 @@
 <!-- 发表帖子 -->
 <template>
     <div>
+        <div class="h3 flex p-2 m-2">帖子发表</div>
         <MDBBtn color="link" style="display: flex;" @click="handleReturnBBS">
             返回
         </MDBBtn>

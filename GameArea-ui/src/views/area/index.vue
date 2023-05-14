@@ -1,10 +1,10 @@
 <!-- area -->
 <template>
     <div class="">
-        <div class="bg-base-100 card rounded-box">
-            <span class="pt-2 mb-2 mx-2" style="display: flex;align-items: flex-end;">
-                <img :src="areaData.areaPicPath" style="width: 100px;height: 100px;margin-right: 10px;" />
-                <h2 class="h2">{{ area.areaName }}</h2>
+        <div class="card rounded-box mt-3">
+            <span class="pt-2 mx-2" style="display: flex;align-items: flex-end;">
+                <img class="rounded-box m-3" :src="areaData.areaPicPath" style="width: 100px;height: 100px;margin-right: 10px;" />
+                <h2 class="h2 mb-4">{{ area.areaName }}</h2>
             </span>
 
             <div class="flex justify-end dropdown dropdown-end">
@@ -14,12 +14,14 @@
                 <ul tabindex="area" class="menu menu-compact dropdown-content mt-4 p-2 bg-base-100 rounded-xl shadow">
                     <li v-if="!false"><a href="">关注</a></li>
                     <li v-else><a href="">取消关注</a></li>
-                    <li><a href="">管理</a></li>
+                    <ul v-if="true">
+                       <li><a href="/area/edit">管理</a></li> 
+                    </ul>
                 </ul>
             </div>
 
             <div class="tabs ml-5">
-                <div class="dropdown">
+                <div class="dropdown border">
                     <label tabindex="0" class="tab tab-lg tab-lifted">分区菜单</label>
                     <ul tabindex="0" class="dropdown-content meun p-2 shadow bg-base-100 rounded-box w-20">
                         <li><a href="/area/index">主页</a></li>
@@ -28,7 +30,7 @@
                     </ul>
                 </div>
 
-                <div class="dropdown">
+                <div class="dropdown border">
                     <a tabindex="1" class="tab tab-lg tab-lifted">社区</a>
                     <ul tabindex="1" class="dropdown-content meun p-2 shadow bg-base-100 rounded-box w-20">
                         <li><a href="/area/bbs">交流论坛</a></li>

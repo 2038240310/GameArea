@@ -162,6 +162,12 @@ const routes = [
         ]
       },
       {
+        // 分区编辑
+        path: '/area/edit',
+        component: () => import('@/views/area/edit.vue'),
+        name: 'area-edit'
+      },
+      {
         // 登录
         path: '/login',
         component: () => import('@/views/login/index.vue'),

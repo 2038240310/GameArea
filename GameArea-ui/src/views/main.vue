@@ -10,7 +10,7 @@
                     <MDBCard style="height: 80%;">
                         <!-- <MDBCardImg /> -->
                         <br />
-                        <MDBCardTitle>
+                        <MDBCardTitle class="mx-auto">
                             Welcome, gamearea!
                         </MDBCardTitle>
                         <br />
@@ -43,7 +43,7 @@
                                 <MDBCard class="m-1" style="width: 100px;height: 100px;" @click="toArea(item.id)">
                                     <MDBCardImg :src="item.areaPicPath" top alt="..."
                                         style="object-fit: cover;height: 75%;" />
-                                    <MDBCardTitle>{{ item.areaName }}</MDBCardTitle>
+                                    <MDBCardTitle class="mx-auto">{{ item.areaName }}</MDBCardTitle>
                                 </MDBCard>
                             </div>
                         </MDBCardGroup>
@@ -153,7 +153,7 @@ mainPageData.areaList = [
     {
         id: 1,
         areaName: '饥荒',
-        areaPicPath: 'http://127.0.0.1:8080/img/bbs_icon/dont%20starve.png'
+        areaPicPath: 'http://127.0.0.1:5173/src/assets/img/area/dst/main.jpg'
     },
     {
         id: 2,

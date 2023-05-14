@@ -24,20 +24,21 @@
 
         <!-- 项目数据列表 -->
         <div class="swap my-1 mr-2" v-for="item in 20" @click="toDetail(item.boardId)">
-            <div class="card w-60 h-60 bg-base-100 shadow-xl">
+            <div class="card w-60 h-60 shadow-xl">
                 <figure>
                     <img src="https://th.bing.com/th/id/R.171e8fe1aa1544a1868ab710eed82d82?rik=FLPxvVVL9C9bnQ&riu=http%3a%2f%2fwww.pp3.cn%2fuploads%2fallimg%2f200710%2f14-200G00Z321.jpg&ehk=Lb0IHCCZIdqYQOi28m%2borU8c1ARGbTEC%2f8WYzfwRuHo%3d&risl=&pid=ImgRaw&r=0"
                         alt="Shoes" />
                 </figure>
                 <div class="card-body h-2/6 p-2">
                     <h2 class="card-title mb-0">
-                        title
+                        测试数据
                     </h2>
                     <div class="card-actions justify-end">
                         <i class='far fa-comment-dots mx-2'></i>
                     </div>
                     <div class="card-actions justify-end">
                         <div class="badge badge-outline">tag</div>
+                        <div class="badge badge-outline">new</div>
                     </div>
                 </div>
             </div>
